@@ -190,6 +190,11 @@ namespace DigitalTwinMiddleware.Services
 
         public async Task<bool> ResetSubDevices(string iOTDeviceId, List<CreateIOTSubDeviceDto> iOTSubDevices, CancellationToken token)
         {
+            if(iOTSubDevices is null)
+            {
+                return false;
+            }
+
             var iotSubDevices = await ListAllSubDevices().Where(c => c.IOTSubDeviceBody.IOTDeviceId == iOTDeviceId).ToListAsync(token);
 
             if (iotSubDevices is not null)

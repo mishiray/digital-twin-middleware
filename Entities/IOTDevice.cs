@@ -28,6 +28,10 @@ namespace DigitalTwinMiddleware.Entities
     public class IOTSubDeviceBody : BaseEntity
     {
         [Required]
+        public string IOTSubDeviceId { get; set; }
+        public IOTSubDevice IOTSubDevice { get; set; }
+
+        [Required]
         public string IOTDeviceId { get; set; }
         public IOTDevice IOTDevice { get; set; }
     }

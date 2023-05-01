@@ -125,7 +125,9 @@ namespace DigitalTwinMiddleware.Controllers.V1
                 return BadRequest(ResponseBuilder.BuildResponse<object>(ModelState, null));
             }
 
-            var existingIOTDevice = await deviceService.ListAll().Include(c => c.IOTSubDevices).FirstOrDefaultAsync(c => c.Id == iOTDeviceId, token);
+            var existingIOTDevice = await deviceService.ListAll().Include(c => c.IOTSubDevices)
+                .ThenInclude(c => c.IOTSubDeviceBody)
+                .FirstOrDefaultAsync(c => c.Id == iOTDeviceId, token);
 
             if(existingIOTDevice is null)
             {
