@@ -9,6 +9,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetGPSModuleDto GPSModule { get; set; }
         public GetUltrasonicSensorDto UltrasonicSensor { get; set; }
         public GetMotionSensorDto MotionSensor { get; set; }
+        public GetLedSensorDto LedSensor { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
     }
 
@@ -23,6 +24,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetGPSModuleDto GPSData { get; set; }
         public GetUltrasonicSensorDto UltrasonicSensorData { get; set; }
         public GetMotionSensorDto MotionSensorDto { get; set; }
+        public GetLedSensorDto LedSensor { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
     }
 

@@ -12,6 +12,7 @@ namespace DigitalTwinMiddleware.Entities
         public UltrasonicSensor UltrasonicSensor { get; set; }
         public CameraSensor CameraSensor { get; set; }
         public MotionSensor MotionSensor { get; set; }
+        public LedSensor LedSensor { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
     }

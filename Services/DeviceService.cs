@@ -195,7 +195,7 @@ namespace DigitalTwinMiddleware.Services
                 return false;
             }
 
-            var iotSubDevices = await ListAllSubDevices().Where(c => c.IOTSubDeviceBody.IOTDeviceId == iOTDeviceId).ToListAsync(token);
+            var iotSubDevices = await ListAllSubDevices().Include(c => c.IOTSubDeviceBody).Where(c => c.IOTDeviceId == iOTDeviceId).ToListAsync(token);
 
             if (iotSubDevices is not null)
             {
