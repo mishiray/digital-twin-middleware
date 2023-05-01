@@ -68,7 +68,10 @@ namespace DigitalTwinMiddleware.Configurations
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId)))
                 .ForMember(dest => dest.DHT11Sensor, option => option
                 .MapFrom(src => src.DHT11Sensor == null ? null : new DHT11Sensor(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)));
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)))
+                .ForMember(dest => dest.MotionSensor, option => option
+                .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId))); ;
 
             CreateMap<Telemetry, GetTelemetryDto>()
                 .ForMember(dest => dest.DeviceStatus, option => option
@@ -82,7 +85,10 @@ namespace DigitalTwinMiddleware.Configurations
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId)))
                 .ForMember(dest => dest.DHT11SensorData, option => option
                 .MapFrom(src => src.DHT11Sensor == null ? null : new GetDHT11SensorDto(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)));
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)))
+                .ForMember(dest => dest.MotionSensorDto, option => option
+                .MapFrom(src => src.MotionSensor == null ? null : new GetMotionSensorDto(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, ExportTelemetryData>()
                 .ForMember(dest => dest.MaintenanceStatus, option => option

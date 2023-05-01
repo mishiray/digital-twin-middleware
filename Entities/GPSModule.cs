@@ -28,7 +28,6 @@ namespace DigitalTwinMiddleware.Entities
             Longitude = longitude;
             Latitude = latitude;
             DeviceStatus = deviceStatus;
-
             IOTDeviceId = iotDeviceId;
         }
     }
