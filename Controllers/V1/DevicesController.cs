@@ -46,7 +46,7 @@ namespace DigitalTwinMiddleware.Controllers.V1
             return new ControllerResponse().ReturnResponse(createdResult);
         }
 
-        [HttpPost("connect")]
+        [HttpGet("connect")]
         public async Task<IActionResult> EstablishConnection(CancellationToken token)
         {
             if (!ModelState.IsValid)
