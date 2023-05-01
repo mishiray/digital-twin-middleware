@@ -37,7 +37,6 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
 
     public class CreateIOTSubDeviceDto
     {
-        [Required]
         public string IOTDeviceId { get; set; }
     }
 
