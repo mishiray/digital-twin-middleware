@@ -54,7 +54,7 @@ namespace DigitalTwinMiddleware.Controllers.V1
         }
 
         [HttpGet("get-by-id")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> GetById([Required]string userId, CancellationToken token)
         {
             if (string.IsNullOrEmpty(userId))
