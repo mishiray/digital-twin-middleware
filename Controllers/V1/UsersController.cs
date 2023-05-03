@@ -28,7 +28,6 @@ namespace DigitalTwinMiddleware.Controllers.V1
         }
 
         [HttpPost("create")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateUserDto model, CancellationToken token)
         {
             if (!ModelState.IsValid)
