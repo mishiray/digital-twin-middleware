@@ -53,6 +53,11 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public DateTime LastInitiatedConnection { get; set; }
         public List<GetSubIOTDeviceDto> IOTSubDevices { get; set; }
     }
+    public class GetIOTDeviceSummary
+    {
+        public int TotalDevices { get; set; }
+        public int TotalComponentDevices { get; set; }
+    }
 
     public class GetIOTResourceDiscoveryDeviceDto
     {
