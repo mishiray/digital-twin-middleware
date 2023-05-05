@@ -71,6 +71,21 @@ namespace DigitalTwinMiddleware.Controllers.V1
             return Ok(ResponseBuilder.BuildResponse(null, Pagination.GetPagedData(mapped, page, perPage, await iotDevices.CountAsync(token))));
         }
 
+        [HttpGet("get-all-components")]
+        public async Task<IActionResult> ListAllComponents(int page, int perPage, CancellationToken token)
+        {
+            var iotDevices = deviceService.ListAll()
+                .Include(c => c.User)
+                .Where(c => c.UserId == HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) 
+                && c.IOTConfigType == IOTType.Component);
+
+            var paginatedDevices = iotDevices.Paginate(page, perPage);
+
+            var mapped = mapper.Map<List<GetIOTDeviceDto>>(paginatedDevices);
+
+            return Ok(ResponseBuilder.BuildResponse(null, Pagination.GetPagedData(mapped, page, perPage, await iotDevices.CountAsync(token))));
+        }
+
         [HttpGet("get-summary")]
         public async Task<IActionResult> Summary(CancellationToken token)
         {
