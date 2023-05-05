@@ -50,7 +50,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public string IOTConfigType { get; set; }
         public bool IsActive { get; set; }
         public DateTime TimeStamp { get; set; }
-        public DateTime LastInitiatedConnection { get; set; }
+        public DateTime? LastInitiatedConnection { get; set; }
         public List<GetSubIOTDeviceDto> IOTSubDevices { get; set; }
     }
     public class GetIOTDeviceSummary
