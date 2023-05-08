@@ -41,9 +41,24 @@ namespace DigitalTwinMiddleware.Controllers.V1
             var iotDevice = mapper.Map<IOTDevice>(model);
             iotDevice.UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var createdResult = await deviceService.Create(iotDevice, token);
+            var customResponse = await deviceService.Create(iotDevice, token);
+            switch (customResponse.Response)
+            {
+                case ServiceResponses.NotFound:
+                    ModelState.AddModelError($"{customResponse.Response}", customResponse.Message);
+                    return NotFound(ResponseBuilder.BuildResponse<object>(ModelState, null));
 
-            return new ControllerResponse().ReturnResponse(createdResult);
+                case ServiceResponses.Failed:
+                    ModelState.AddModelError($"{customResponse.Response}", customResponse.Message);
+                    return UnprocessableEntity(ResponseBuilder.BuildResponse<object>(ModelState, null));
+
+                case ServiceResponses.Success:
+                    return Ok(ResponseBuilder.BuildResponse<object>(null, mapper.Map<CreateIOTDeviceResponseDto>(customResponse.Data)));
+
+                default:
+                    ModelState.AddModelError($"{customResponse.Response}", customResponse.Message);
+                    return UnprocessableEntity(ResponseBuilder.BuildResponse<object>(ModelState, null));
+            }
         }
 
         [HttpGet("connect")]
@@ -145,7 +160,7 @@ namespace DigitalTwinMiddleware.Controllers.V1
         }
 
         [HttpPatch("{iOTDeviceId}")]
-        public async Task<IActionResult> Update([Required] string iOTDeviceId, UpdateIOTDeviceDto model, CancellationToken token)
+        public async Task<IActionResult> Update([Required] string iOTDeviceId, UpdateIOTDeviceDto  model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {

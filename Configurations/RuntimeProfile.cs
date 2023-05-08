@@ -39,6 +39,7 @@ namespace DigitalTwinMiddleware.Configurations
                     }
                 })));
             CreateMap<IOTDevice, GetIOTResourceDiscoveryDeviceDto>();
+            CreateMap<IOTDevice, CreateIOTDeviceResponseDto>();
             CreateMap<IOTDevice, GetIOTDeviceDto>()
                 .ForMember(dest => dest.IOTSubDevices, option => option
                 .MapFrom(src => src.IOTSubDevices.Select(c => new GetSubIOTDeviceDto()
