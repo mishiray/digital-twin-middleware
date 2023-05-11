@@ -23,8 +23,8 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetDHT11SensorDto DHT11SensorData { get; set; }
         public GetGPSModuleDto GPSData { get; set; }
         public GetUltrasonicSensorDto UltrasonicSensorData { get; set; }
-        public GetMotionSensorDto MotionSensorDto { get; set; }
-        public GetLedSensorDto LedSensor { get; set; }
+        public GetMotionSensorDto MotionSensorData { get; set; }
+        public GetLedSensorDto LedSensorData { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
     }
 
