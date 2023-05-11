@@ -40,8 +40,8 @@ namespace DigitalTwinMiddleware.Entities
         public double Longitude { get; set; }
         public double Latitude { get; set; }
 
-        public AnotherGetDeviceStatus DeviceStatus { get; set; }
-        public GetGPSModuleDto(string deviceId, double longitude, double latitude, AnotherGetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetDeviceStatus DeviceStatus { get; set; }
+        public GetGPSModuleDto(string deviceId, double longitude, double latitude, GetDeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
             Longitude = longitude;

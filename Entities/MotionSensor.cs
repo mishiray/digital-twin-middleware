@@ -37,8 +37,8 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public bool MotionDetected { get; set; }
 
-        public AnotherGetDeviceStatus DeviceStatus { get; set; }
-        public GetMotionSensorDto(string deviceId, bool motionDetected, AnotherGetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetDeviceStatus DeviceStatus { get; set; }
+        public GetMotionSensorDto(string deviceId, bool motionDetected, GetDeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
             MotionDetected = motionDetected;
