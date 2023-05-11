@@ -44,8 +44,8 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public double Distance { get; set; }
         public double Duration { get; set; }
-        public GetDeviceStatus DeviceStatus { get; set; }
-        public GetUltrasonicSensorDto(string deviceId, double distance, GetDeviceStatus deviceStatus,string iOTDeviceId, double duration)
+        public AnotherGetDeviceStatus DeviceStatus { get; set; }
+        public GetUltrasonicSensorDto(string deviceId, double distance, AnotherGetDeviceStatus deviceStatus,string iOTDeviceId, double duration)
         {
             IOTDeviceId = iOTDeviceId;
             DeviceId = deviceId;

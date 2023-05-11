@@ -25,7 +25,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetUltrasonicSensorDto UltrasonicSensorData { get; set; }
         public GetMotionSensorDto MotionSensorDto { get; set; }
         public GetLedSensorDto LedSensor { get; set; }
-        public GetDeviceStatus DeviceStatus { get; set; }
+        public AnotherGetDeviceStatus DeviceStatus { get; set; }
     }
 
     public class ExportTelemetryData
@@ -87,7 +87,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         {
         }
 
-        public GetDeviceStatus(OperationalStatus operationalStatus, PowerStatus powerStatus, MaintenanceStatus maintenanceStatus, 
+        public GetDeviceStatus(OperationalStatus operationalStatus, PowerStatus powerStatus, MaintenanceStatus maintenanceStatus,
             PerformanceStatus performanceStatus, HealthStatus healthStatus, ConfigurationStatus configurationStatus)
         {
             OperationalStatus = operationalStatus;
@@ -96,6 +96,30 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
             PerformanceStatus = performanceStatus;
             HealthStatus = healthStatus;
             ConfigurationStatus = configurationStatus;
+        }
+    }
+    public class AnotherGetDeviceStatus
+    {
+        public string OperationalStatus { get; set; }
+        public string PowerStatus { get; set; }
+        public string MaintenanceStatus { get; set; }
+        public string PerformanceStatus { get; set; }
+        public string HealthStatus { get; set; }
+        public string ConfigurationStatus { get; set; }
+
+        public AnotherGetDeviceStatus()
+        {
+        }
+
+        public AnotherGetDeviceStatus(OperationalStatus operationalStatus, PowerStatus powerStatus, MaintenanceStatus maintenanceStatus,
+            PerformanceStatus performanceStatus, HealthStatus healthStatus, ConfigurationStatus configurationStatus)
+        {
+            OperationalStatus = operationalStatus.ToString();
+            PowerStatus = powerStatus.ToString();
+            MaintenanceStatus = maintenanceStatus.ToString();
+            PerformanceStatus = performanceStatus.ToString();
+            HealthStatus = healthStatus.ToString();
+            ConfigurationStatus = configurationStatus.ToString();
         }
     }
 

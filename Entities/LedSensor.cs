@@ -37,8 +37,8 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public bool IsOn { get; set; }
 
-        public GetDeviceStatus DeviceStatus { get; set; }
-        public GetLedSensorDto(string deviceId, bool isOn, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public AnotherGetDeviceStatus DeviceStatus { get; set; }
+        public GetLedSensorDto(string deviceId, bool isOn, AnotherGetDeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
             IsOn = isOn;
