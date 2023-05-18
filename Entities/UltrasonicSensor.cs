@@ -1,5 +1,6 @@
 ﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
 using DigitalTwinMiddleware.DTOs.Enums;
+using DigitalTwinMiddleware.Interfaces;
 using DigitalTwinMiddleware.Migrations;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DigitalTwinMiddleware.Entities
 {
-    public class UltrasonicSensor : BaseEntity
+    public class UltrasonicSensor : BaseEntity, ITelemetryData
     {
         public string IOTDeviceId { get; set; }
         public IOTDevice IOTDevice { get; set; }

@@ -57,7 +57,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("CameraSensor");
+                    b.ToTable("CameraSensor", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceStatus", b =>
@@ -94,7 +94,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeviceStatus");
+                    b.ToTable("DeviceStatus", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DHT11Sensor", b =>
@@ -135,7 +135,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("DHT11Sensor");
+                    b.ToTable("DHT11Sensor", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.GPSModule", b =>
@@ -176,7 +176,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("GPSModule");
+                    b.ToTable("GPSModule", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.IOTDevice", b =>
@@ -219,7 +219,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IOTDevices");
+                    b.ToTable("IOTDevices", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.IOTSubDevice", b =>
@@ -248,7 +248,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTSubDeviceBodyId");
 
-                    b.ToTable("IOTSubDevice");
+                    b.ToTable("IOTSubDevice", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.IOTSubDeviceBody", b =>
@@ -273,7 +273,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("IOTSubDeviceBody");
+                    b.ToTable("IOTSubDeviceBody", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.LedSensor", b =>
@@ -311,7 +311,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("LedSensor");
+                    b.ToTable("LedSensor", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.MotionSensor", b =>
@@ -349,7 +349,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("MotionSensor");
+                    b.ToTable("MotionSensor", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.Telemetry", b =>
@@ -408,7 +408,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("UltrasonicSensorId");
 
-                    b.ToTable("Telemetries");
+                    b.ToTable("Telemetries", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.UltrasonicSensor", b =>
@@ -449,7 +449,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("IOTDeviceId");
 
-                    b.ToTable("UltrasonicSensor");
+                    b.ToTable("UltrasonicSensor", (string)null);
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.User", b =>

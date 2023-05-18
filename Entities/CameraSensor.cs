@@ -1,4 +1,6 @@
-﻿using DigitalTwinMiddleware.DTOs.Enums;
+﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
+using DigitalTwinMiddleware.DTOs.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DigitalTwinMiddleware.Entities
 {
@@ -23,6 +25,22 @@ namespace DigitalTwinMiddleware.Entities
         {
             DeviceId = deviceId;
             Data = data;
+            DeviceStatus = deviceStatus;
+            IOTDeviceId = iotDeviceId;
+        }
+    }
+    public class GetCameraSensorDto
+    {
+        [Required]
+        public string IOTDeviceId { get; set; }
+        public string DeviceId { get; set; }
+        public byte[] Data { get; set; }
+
+        public GetDeviceStatus DeviceStatus { get; set; }
+        public GetCameraSensorDto(string deviceId, byte[] Data, GetDeviceStatus deviceStatus, string iotDeviceId)
+        {
+            DeviceId = deviceId;
+            Data = Data;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
         }

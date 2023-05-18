@@ -20,6 +20,10 @@ namespace DigitalTwinMiddleware.Entities
         public List<IOTSensorType> IOTSensorTypes { get; set; }
         public double Temperature { get; set; }
         public double Humidity { get; set; }
+        double MinTemperature { get; set; }
+        double MaxTemperature { get; set; }
+        double MinHumidity { get; set; }
+        double MaxHumidity { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
 
@@ -27,14 +31,81 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public DHT11SensorTwin(string deviceId, double temperature, double humidity, DeviceStatus deviceStatus, string iotDeviceId)
+        public DHT11SensorTwin(string iOTDeviceId, string deviceId, double minTemperature, double maxTemperature,
+            double minHumidity, double maxHumidity, DeviceStatus deviceStatus)
         {
+            IOTDeviceId = iOTDeviceId;
             DeviceId = deviceId;
-            Temperature = temperature;
-            Humidity = humidity;
+            MinTemperature = minTemperature;
+            MaxTemperature = maxTemperature;
+            MinHumidity = minHumidity;
+            MaxHumidity = maxHumidity;
             DeviceStatus = deviceStatus;
+        }
 
-            IOTDeviceId = iotDeviceId;
+        // Methods
+        public DeviceStatus StatusCheck(double temperatureRawValue, double humidityRawValue)
+        {
+            Temperature = MapValue(temperatureRawValue, 0, 1023, -40, 125);
+            Humidity = MapValue(humidityRawValue, 0, 1023, 0, 100);
+
+            // Check if temperature is within valid range
+            if (Temperature < MinTemperature)
+            {
+                Temperature = MinTemperature;
+            }
+            else if (Temperature > MaxTemperature)
+            {
+                Temperature = MaxTemperature;
+            }
+            else
+            {
+                return new DeviceStatus()
+                {
+                    PowerStatus = DTOs.Enums.PowerStatus.On,
+                    ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
+                    OperationalStatus = DTOs.Enums.OperationalStatus.Error,
+                    HealthStatus = DTOs.Enums.HealthStatus.Critical,
+                    MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
+                    PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+                };
+            }
+
+            // Check if humidity is within valid range
+            if (Humidity < MinHumidity)
+            {
+                Humidity = MinHumidity;
+            }
+            else if (Humidity > MaxHumidity)
+            {
+                Humidity = MaxHumidity;
+            }
+            else
+            {
+                return new DeviceStatus()
+                {
+                    PowerStatus = DTOs.Enums.PowerStatus.On,
+                    ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
+                    OperationalStatus = DTOs.Enums.OperationalStatus.Error,
+                    HealthStatus = DTOs.Enums.HealthStatus.Critical,
+                    MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
+                    PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+                };
+            }
+
+            return new DeviceStatus()
+            {
+                PowerStatus = DTOs.Enums.PowerStatus.On,
+                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Current,
+                OperationalStatus = DTOs.Enums.OperationalStatus.Running,
+                HealthStatus = DTOs.Enums.HealthStatus.Normal,
+                MaintenanceStatus = DTOs.Enums.MaintenanceStatus.NotRequired,
+                PerformanceStatus = DTOs.Enums.PerformanceStatus.Normal
+            };
+        }
+        private double MapValue(double value, double inMin, double inMax, double outMin, double outMax)
+        {
+            return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
         }
     }
 }
