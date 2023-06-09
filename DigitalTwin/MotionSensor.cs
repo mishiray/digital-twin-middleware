@@ -1,19 +1,16 @@
-﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
-using DigitalTwinMiddleware.DTOs.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using DigitalTwinMiddleware.Entities;
 
-namespace DigitalTwinMiddleware.Entities
+namespace DigitalTwinMiddleware.DigitalTwin
 {
-    public class GPSModuleTwin
+    public class MotionSensor
     {
-
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
-
+        public bool MotionDetected { get; set; }
         public DeviceStatus DeviceStatus { get; set; }
 
-        public GPSModuleTwin()
+        // Constructor
+        public MotionSensor()
         {
+            MotionDetected = false;
             DeviceStatus = new DeviceStatus()
             {
                 PowerStatus = DTOs.Enums.PowerStatus.On,
@@ -25,18 +22,10 @@ namespace DigitalTwinMiddleware.Entities
             };
         }
 
-        public GPSModuleTwin(double longitude, double latitude, DeviceStatus deviceStatus)
+        // Methods
+        public DeviceStatus UpdateMotionStatus(bool? motionDetected)
         {
-            Longitude = longitude;
-            Latitude = latitude;
-            DeviceStatus = deviceStatus;
-        }
-
-        public DeviceStatus StatusCheck(double longitude, double latitude)
-        {
-            
-            // Check if within valid range
-            if (longitude < 0 || latitude < 0)
+            if(motionDetected is null)
             {
                 return new DeviceStatus()
                 {
@@ -49,19 +38,33 @@ namespace DigitalTwinMiddleware.Entities
                 };
             }
 
-            this.Longitude = longitude;
-            this.Latitude = latitude;
+            if(motionDetected is false)
+            {
+                return new DeviceStatus()
+                {
+                    PowerStatus = DTOs.Enums.PowerStatus.On,
+                    ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Default,
+                    OperationalStatus = DTOs.Enums.OperationalStatus.Running,
+                    HealthStatus = DTOs.Enums.HealthStatus.Normal,
+                    MaintenanceStatus = DTOs.Enums.MaintenanceStatus.NotRequired,
+                    PerformanceStatus = DTOs.Enums.PerformanceStatus.Normal
+                };
+            }
+
+            if(motionDetected is true)
+            {
+                MotionDetected = true;
+            }
 
             return new DeviceStatus()
             {
                 PowerStatus = DTOs.Enums.PowerStatus.On,
-                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Current,
+                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Default,
                 OperationalStatus = DTOs.Enums.OperationalStatus.Running,
                 HealthStatus = DTOs.Enums.HealthStatus.Normal,
                 MaintenanceStatus = DTOs.Enums.MaintenanceStatus.NotRequired,
                 PerformanceStatus = DTOs.Enums.PerformanceStatus.Normal
             };
         }
-
     }
 }

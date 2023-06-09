@@ -10,7 +10,7 @@ namespace DigitalTwinMiddleware.Data
 
         public DbSet<IOTDevice> IOTDevices { get; set; }
         public DbSet<Telemetry> Telemetries { get; set; }
-
+        public DbSet<DefaultLog> DefaultLogs { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 

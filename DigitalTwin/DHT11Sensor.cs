@@ -13,11 +13,6 @@ namespace DigitalTwinMiddleware.Entities
 {
     public class DHT11SensorTwin
     {
-        public string IOTDeviceId { get; set; }
-        public IOTDevice IOTDevice { get; set; }
-
-        public string DeviceId { get; set; }
-        public List<IOTSensorType> IOTSensorTypes { get; set; }
         public double Temperature { get; set; }
         public double Humidity { get; set; }
         double MinTemperature { get; set; }
@@ -31,11 +26,9 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public DHT11SensorTwin(string iOTDeviceId, string deviceId, double minTemperature, double maxTemperature,
+        public DHT11SensorTwin(double minTemperature, double maxTemperature,
             double minHumidity, double maxHumidity, DeviceStatus deviceStatus)
         {
-            IOTDeviceId = iOTDeviceId;
-            DeviceId = deviceId;
             MinTemperature = minTemperature;
             MaxTemperature = maxTemperature;
             MinHumidity = minHumidity;

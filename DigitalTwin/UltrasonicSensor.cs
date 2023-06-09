@@ -14,7 +14,6 @@ namespace DigitalTwinMiddleware.Entities
         double Distance { get; set; }
         double MinDistance { get; set; }
         double MaxDistance { get; set; }
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType> { IOTSensorType.ProximitySensors };
         public DeviceStatus DeviceStatus { get; set; }
 
         // Constructor
@@ -22,10 +21,28 @@ namespace DigitalTwinMiddleware.Entities
         {
             MinDistance = minDistance;
             MaxDistance = maxDistance;
+            DeviceStatus = new DeviceStatus()
+            {
+                PowerStatus = DTOs.Enums.PowerStatus.On,
+                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
+                OperationalStatus = DTOs.Enums.OperationalStatus.Error,
+                HealthStatus = DTOs.Enums.HealthStatus.Critical,
+                MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
+                PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+            };
         }
 
         public UltrasonicSensorTwin()
         {
+            DeviceStatus = new DeviceStatus()
+            {
+                PowerStatus = DTOs.Enums.PowerStatus.On,
+                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
+                OperationalStatus = DTOs.Enums.OperationalStatus.Error,
+                HealthStatus = DTOs.Enums.HealthStatus.Critical,
+                MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
+                PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+            };
         }
 
         // Methods

@@ -62,20 +62,23 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus)))
                 .ForMember(dest => dest.GPSModule, option => option
-                .MapFrom(src => src.GPSModule == null ? null : new GPSModule(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus, 
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId)))
+                .MapFrom(src => src.GPSModule == null ? null : new GPSModule(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, new DeviceStatus(src.GPSModule.DeviceStatus.OperationalStatus, src.GPSModule.DeviceStatus.PowerStatus, 
+                src.GPSModule.DeviceStatus.MaintenanceStatus, src.GPSModule.DeviceStatus.PerformanceStatus, src.GPSModule.DeviceStatus.HealthStatus, src.GPSModule.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId)))
                 .ForMember(dest => dest.UltrasonicSensor, option => option
-                .MapFrom(src => src.UltrasonicSensor == null ? null : new UltrasonicSensor(src.UltrasonicSensor.Distance, src.UltrasonicSensor.DeviceId, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration)))
+                .MapFrom(src => src.UltrasonicSensor == null ? null : new UltrasonicSensor(src.UltrasonicSensor.Distance, src.UltrasonicSensor.DeviceId, new DeviceStatus(src.UltrasonicSensor.DeviceStatus.OperationalStatus, src.UltrasonicSensor.DeviceStatus.PowerStatus,
+                src.UltrasonicSensor.DeviceStatus.MaintenanceStatus, src.UltrasonicSensor.DeviceStatus.PerformanceStatus, src.UltrasonicSensor.DeviceStatus.HealthStatus, src.UltrasonicSensor.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration)))
                 .ForMember(dest => dest.DHT11Sensor, option => option
-                .MapFrom(src => src.DHT11Sensor == null ? null : new DHT11Sensor(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)))
+                .MapFrom(src => src.DHT11Sensor == null ? null : new DHT11Sensor(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new DeviceStatus(src.DHT11Sensor.DeviceStatus.OperationalStatus, src.DHT11Sensor.DeviceStatus.PowerStatus,
+                src.DHT11Sensor.DeviceStatus.MaintenanceStatus, src.DHT11Sensor.DeviceStatus.PerformanceStatus, src.DHT11Sensor.DeviceStatus.HealthStatus, src.DHT11Sensor.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)))
                 .ForMember(dest => dest.MotionSensor, option => option
-                .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)))
+                .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.MotionSensor.DeviceStatus.OperationalStatus, src.MotionSensor.DeviceStatus.PowerStatus,
+                src.MotionSensor.DeviceStatus.MaintenanceStatus, src.MotionSensor.DeviceStatus.PerformanceStatus, src.MotionSensor.DeviceStatus.HealthStatus, src.MotionSensor.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)))
+                .ForMember(dest => dest.CameraSensor, option => option
+                .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, new DeviceStatus(src.CameraSensor.DeviceStatus.OperationalStatus, src.CameraSensor.DeviceStatus.PowerStatus,
+                src.CameraSensor.DeviceStatus.MaintenanceStatus, src.CameraSensor.DeviceStatus.PerformanceStatus, src.CameraSensor.DeviceStatus.HealthStatus, src.CameraSensor.DeviceStatus.ConfigurationStatus), src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensor, option => option
-                .MapFrom(src => src.LedSensor == null ? null : new MotionSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
+                .MapFrom(src => src.LedSensor == null ? null : new MotionSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
+                src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, GetTelemetryDto>()
                 .ForMember(dest => dest.DeviceStatus, option => option
