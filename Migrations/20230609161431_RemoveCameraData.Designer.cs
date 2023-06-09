@@ -3,6 +3,7 @@ using System;
 using DigitalTwinMiddleware.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DigitalTwinMiddleware.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230609161431_RemoveCameraData")]
+    partial class RemoveCameraData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,44 +23,6 @@ namespace DigitalTwinMiddleware.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.CameraSensor", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("bytea");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeviceId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DeviceStatusId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IOTDeviceId")
-                        .HasColumnType("text");
-
-                    b.Property<int[]>("IOTSensorTypes")
-                        .HasColumnType("integer[]");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeviceStatusId");
-
-                    b.HasIndex("IOTDeviceId");
-
-                    b.ToTable("CameraSensor");
-                });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DefaultLog", b =>
                 {
@@ -379,9 +343,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CameraSensorId")
-                        .HasColumnType("text");
-
                     b.Property<string>("DHT11SensorId")
                         .HasColumnType("text");
 
@@ -413,8 +374,6 @@ namespace DigitalTwinMiddleware.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CameraSensorId");
 
                     b.HasIndex("DHT11SensorId");
 
@@ -684,21 +643,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.CameraSensor", b =>
-                {
-                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceStatus", "DeviceStatus")
-                        .WithMany()
-                        .HasForeignKey("DeviceStatusId");
-
-                    b.HasOne("DigitalTwinMiddleware.Entities.IOTDevice", "IOTDevice")
-                        .WithMany()
-                        .HasForeignKey("IOTDeviceId");
-
-                    b.Navigation("DeviceStatus");
-
-                    b.Navigation("IOTDevice");
-                });
-
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DHT11Sensor", b =>
                 {
                     b.HasOne("DigitalTwinMiddleware.Entities.DeviceStatus", "DeviceStatus")
@@ -798,10 +742,6 @@ namespace DigitalTwinMiddleware.Migrations
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.Telemetry", b =>
                 {
-                    b.HasOne("DigitalTwinMiddleware.Entities.CameraSensor", "CameraSensor")
-                        .WithMany()
-                        .HasForeignKey("CameraSensorId");
-
                     b.HasOne("DigitalTwinMiddleware.Entities.DHT11Sensor", "DHT11Sensor")
                         .WithMany()
                         .HasForeignKey("DHT11SensorId");
@@ -829,8 +769,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.HasOne("DigitalTwinMiddleware.Entities.UltrasonicSensor", "UltrasonicSensor")
                         .WithMany()
                         .HasForeignKey("UltrasonicSensorId");
-
-                    b.Navigation("CameraSensor");
 
                     b.Navigation("DHT11Sensor");
 

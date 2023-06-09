@@ -12,7 +12,7 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.CameraSensors };
 
-        public string Data { get; set; }
+        public byte[] Data { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
 
@@ -21,16 +21,10 @@ namespace DigitalTwinMiddleware.Entities
         }
 
 
-        public CameraSensor(string deviceId, byte[] data, string iotDeviceId)
-        {
-            DeviceId = deviceId;
-            Data = Convert.ToBase64String(data);
-            IOTDeviceId = iotDeviceId;
-        }
         public CameraSensor(string deviceId, byte[] data, DeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
-            Data = Convert.ToBase64String(data);
+            Data = data;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
         }
