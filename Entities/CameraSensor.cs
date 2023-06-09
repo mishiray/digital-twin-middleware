@@ -12,7 +12,7 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.CameraSensors };
 
-        public byte[] Data { get; set; }
+        public string Data { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
 
@@ -21,7 +21,7 @@ namespace DigitalTwinMiddleware.Entities
         }
 
 
-        public CameraSensor(string deviceId, byte[] data, DeviceStatus deviceStatus, string iotDeviceId)
+        public CameraSensor(string deviceId, string data, DeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
             Data = data;
@@ -34,13 +34,13 @@ namespace DigitalTwinMiddleware.Entities
         [Required]
         public string IOTDeviceId { get; set; }
         public string DeviceId { get; set; }
-        public byte[] Data { get; set; }
+        public string Data { get; set; }
 
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetCameraSensorDto(string deviceId, byte[] Data, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetCameraSensorDto(string deviceId,string data, GetDeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
-            Data = Data;
+            Data = data;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
         }

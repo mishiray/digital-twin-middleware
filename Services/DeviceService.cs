@@ -112,6 +112,8 @@ namespace DigitalTwinMiddleware.Services
                 .Include(c => c.GPSModule.DeviceStatus)
                 .Include(c => c.DHT11Sensor.DeviceStatus)
                 .Include(c => c.UltrasonicSensor.DeviceStatus)
+                .Include(c => c.CameraSensor.DeviceStatus)
+                .Include(c => c.LedSensor.DeviceStatus)
                 .Where(c => c.IOTDeviceId == iOTDeviceId);
         }
         public IQueryable<Telemetry> ListAllTelemetry()
@@ -120,7 +122,9 @@ namespace DigitalTwinMiddleware.Services
                 .Include(c => c.DeviceStatus)
                 .Include(c => c.GPSModule.DeviceStatus)
                 .Include(c => c.DHT11Sensor.DeviceStatus)
-                .Include(c => c.UltrasonicSensor.DeviceStatus);
+                .Include(c => c.UltrasonicSensor.DeviceStatus)
+                .Include(c => c.CameraSensor.DeviceStatus)
+                .Include(c => c.LedSensor.DeviceStatus);
         }
 
         public async Task<CustomResponse<bool>> LogTelemetry(Telemetry telemetry, CancellationToken token)

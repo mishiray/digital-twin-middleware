@@ -95,6 +95,8 @@ namespace DigitalTwinMiddleware.Configurations
                 .ForMember(dest => dest.MotionSensorData, option => option
                 .MapFrom(src => src.MotionSensor == null ? null : new GetMotionSensorDto(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)))
+                .ForMember(dest => dest.CameraSensor, option => option
+                .MapFrom(src => src.CameraSensor == null ? null : new GetCameraSensorDto(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensorData, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new GetMotionSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
