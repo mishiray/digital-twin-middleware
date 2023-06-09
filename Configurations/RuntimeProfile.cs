@@ -76,7 +76,7 @@ namespace DigitalTwinMiddleware.Configurations
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensor, option => option
-                .MapFrom(src => src.LedSensor == null ? null : new MotionSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
+                .MapFrom(src => src.LedSensor == null ? null : new LedSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
                 src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, GetTelemetryDto>()
@@ -98,7 +98,7 @@ namespace DigitalTwinMiddleware.Configurations
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new GetCameraSensorDto(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensorData, option => option
-                .MapFrom(src => src.LedSensor == null ? null : new GetMotionSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
+                .MapFrom(src => src.LedSensor == null ? null : new GetLedSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, ExportTelemetryData>()
