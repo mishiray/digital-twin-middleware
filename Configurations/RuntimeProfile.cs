@@ -74,8 +74,7 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.MotionSensor.DeviceStatus.OperationalStatus, src.MotionSensor.DeviceStatus.PowerStatus,
                 src.MotionSensor.DeviceStatus.MaintenanceStatus, src.MotionSensor.DeviceStatus.PerformanceStatus, src.MotionSensor.DeviceStatus.HealthStatus, src.MotionSensor.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)))
                 .ForMember(dest => dest.CameraSensor, option => option
-                .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, new DeviceStatus(src.CameraSensor.DeviceStatus.OperationalStatus, src.CameraSensor.DeviceStatus.PowerStatus,
-                src.CameraSensor.DeviceStatus.MaintenanceStatus, src.CameraSensor.DeviceStatus.PerformanceStatus, src.CameraSensor.DeviceStatus.HealthStatus, src.CameraSensor.DeviceStatus.ConfigurationStatus), src.CameraSensor.IOTDeviceId)))
+                .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensor, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new MotionSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
                 src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));

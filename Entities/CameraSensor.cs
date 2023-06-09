@@ -21,6 +21,12 @@ namespace DigitalTwinMiddleware.Entities
         }
 
 
+        public CameraSensor(string deviceId, byte[] data, string iotDeviceId)
+        {
+            DeviceId = deviceId;
+            Data = data;
+            IOTDeviceId = iotDeviceId;
+        }
         public CameraSensor(string deviceId, byte[] data, DeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
