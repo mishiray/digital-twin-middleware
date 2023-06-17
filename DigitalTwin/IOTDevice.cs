@@ -22,122 +22,125 @@ namespace DigitalTwinMiddleware.DigitalTwin
             var humOffset = .5;
 
             foreach (var telemetry in Telemetries) {
-                
+
                 //DHTSensor
-                if(telemetry.DHT11Sensor != null)
+                if (telemetry.DHT11Sensor != null)
                 {
                     DHT11SensorTwin dHT11SensorTwin = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
                         telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
                     var dHT11Status = dHT11SensorTwin.StatusCheck(telemetry.DHT11Sensor.Temperature, telemetry.DHT11Sensor.Humidity);
-                    if (telemetry.DHT11Sensor.IOTDevice.DeviceRelationships.Count > 0)
-                    {
-                        foreach (var _relationship in telemetry.DHT11Sensor.IOTDevice.DeviceRelationships)
+                     if(telemetry.DHT11Sensor.IOTDevice != null) 
+                    { 
+                        if (telemetry.DHT11Sensor.IOTDevice.DeviceRelationships.Count > 0)
                         {
-                            var conditionTemp = _relationship.DeviceOneCondition.GetValue("Temperature");
-                            var conditionHum = _relationship.DeviceOneCondition.GetValue("Humidity");
-                            if (DeviceRelationship.CheckRelationship(conditionTemp.Condition, dHT11SensorTwin.Temperature, double.Parse(conditionTemp.Value)))
+                            foreach (var _relationship in telemetry.DHT11Sensor.IOTDevice.DeviceRelationships)
                             {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                var conditionTemp = _relationship.DeviceOneCondition.GetValue("Temperature");
+                                var conditionHum = _relationship.DeviceOneCondition.GetValue("Humidity");
+                                if (DeviceRelationship.CheckRelationship(conditionTemp.Condition, dHT11SensorTwin.Temperature, double.Parse(conditionTemp.Value)))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
-                            }
 
-                            if (DeviceRelationship.CheckRelationship(conditionHum.Condition, dHT11SensorTwin.Humidity, double.Parse(conditionHum.Value)))
-                            {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                if (DeviceRelationship.CheckRelationship(conditionHum.Condition, dHT11SensorTwin.Humidity, double.Parse(conditionHum.Value)))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
-                            }
 
+                            }
                         }
-                    }
+                     }
                 }
 
                 //UltrasonicSensor
@@ -148,115 +151,117 @@ namespace DigitalTwinMiddleware.DigitalTwin
                         telemetry.UltrasonicSensor.Duration);
 
                     var ultrasonicStatus = ultrasonicSensorTwin.StatusCheck();
-                    if (telemetry.UltrasonicSensor.IOTDevice.DeviceRelationships.Count > 0)
+                    if (telemetry.UltrasonicSensor.IOTDevice != null)
                     {
-                        foreach (var _relationship in telemetry.UltrasonicSensor.IOTDevice.DeviceRelationships)
+                        if (telemetry.UltrasonicSensor.IOTDevice.DeviceRelationships.Count > 0)
                         {
-                            var conditionMinD = _relationship.DeviceOneCondition.GetValue("MinDistance");
-                            var conditionMaxD = _relationship.DeviceOneCondition.GetValue("MaxDIstance");
-                            if (DeviceRelationship.CheckRelationship(conditionMinD.Condition, ultrasonicSensorTwin.MinDistance, double.Parse(conditionMinD.Value)))
+                            foreach (var _relationship in telemetry.UltrasonicSensor.IOTDevice.DeviceRelationships)
                             {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                var conditionMinD = _relationship.DeviceOneCondition.GetValue("MinDistance");
+                                var conditionMaxD = _relationship.DeviceOneCondition.GetValue("MaxDIstance");
+                                if (DeviceRelationship.CheckRelationship(conditionMinD.Condition, ultrasonicSensorTwin.MinDistance, double.Parse(conditionMinD.Value)))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
-                            }
 
-                            if (DeviceRelationship.CheckRelationship(conditionMaxD.Condition, ultrasonicSensorTwin.MaxDistance, double.Parse(conditionMaxD.Value)))
-                            {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                if (DeviceRelationship.CheckRelationship(conditionMaxD.Condition, ultrasonicSensorTwin.MaxDistance, double.Parse(conditionMaxD.Value)))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
-                            }
 
+                            }
                         }
                     }
-
                 }
 
                 //MotionSensor
@@ -265,64 +270,65 @@ namespace DigitalTwinMiddleware.DigitalTwin
                     MotionSensorTwin motionSensorTwin = new(telemetry.MotionSensor.MotionDetected);
 
                     var motionStatus = motionSensorTwin.StatusCheck();
-
-                    if (telemetry.MotionSensor.IOTDevice.DeviceRelationships.Count > 0)
+                    if (telemetry.MotionSensor.IOTDevice != null)
                     {
-                        foreach (var _relationship in telemetry.MotionSensor.IOTDevice.DeviceRelationships)
+                        if (telemetry.MotionSensor.IOTDevice.DeviceRelationships.Count > 0)
                         {
-                            var condition = _relationship.DeviceOneCondition.GetValue("MotionDetected");
-                            if (condition.Condition == Condition.EqualTo && motionSensorTwin.MotionDetected == bool.Parse(condition.Value))
+                            foreach (var _relationship in telemetry.MotionSensor.IOTDevice.DeviceRelationships)
                             {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                var condition = _relationship.DeviceOneCondition.GetValue("MotionDetected");
+                                if (condition.Condition == Condition.EqualTo && motionSensorTwin.MotionDetected == bool.Parse(condition.Value))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
-                                        
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-
                 }
 
                 //CameraSensor
@@ -347,65 +353,66 @@ namespace DigitalTwinMiddleware.DigitalTwin
                 if (telemetry.LedSensor != null)
                 {
                     LedSensorTwin ledSensorTwin = new(telemetry.LedSensor.IsOn);
-
-                    var ledStatus = ledSensorTwin.StatusCheck();
-                    if (telemetry.LedSensor.IOTDevice.DeviceRelationships.Count > 0)
+                    if (telemetry.LedSensor.IOTDevice != null)
                     {
-                        foreach (var _relationship in telemetry.LedSensor.IOTDevice.DeviceRelationships)
+                        var ledStatus = ledSensorTwin.StatusCheck();
+                        if (telemetry.LedSensor.IOTDevice.DeviceRelationships.Count > 0)
                         {
-                            var condition = _relationship.DeviceOneCondition.GetValue("IsOn");
-                            if (condition.Condition == Condition.EqualTo && ledSensorTwin.IsOn == bool.Parse(condition.Value))
+                            foreach (var _relationship in telemetry.LedSensor.IOTDevice.DeviceRelationships)
                             {
-                                var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                if (deviceType != null)
+                                var condition = _relationship.DeviceOneCondition.GetValue("IsOn");
+                                if (condition.Condition == Condition.EqualTo && ledSensorTwin.IsOn == bool.Parse(condition.Value))
                                 {
-                                    var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                    switch (_deviceIIClass)
+                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
+                                    if (deviceType != null)
                                     {
-                                        case "DHT11Sensor":
-                                            DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                            telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
+                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
+                                        switch (_deviceIIClass)
+                                        {
+                                            case "DHT11Sensor":
+                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
+                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
 
-                                            //null check
-                                            var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                            var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                            var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                            var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
+                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
+                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
+                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoHum.Value));
+                                                break;
 
-                                        case "UltrasonicSensor":
-                                            UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                    telemetry.UltrasonicSensor.Duration);
+                                            case "UltrasonicSensor":
+                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
+                                                                                        telemetry.UltrasonicSensor.Duration);
 
-                                            //null check
-                                            var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                            var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                            var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                            var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
+                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
+                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
+                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
+                                                break;
 
-                                        case "MotionSensor":
-                                            MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
+                                            case "MotionSensor":
+                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
 
-                                            //null check
-                                            var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                            var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
+                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
+                                                break;
 
-                                        case "LedSensor":
-                                            LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
+                                            case "LedSensor":
+                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
 
-                                            //null check
-                                            var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                            var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                            break;
+                                                //null check
+                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
+                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
+                                                break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-
                 }
 
             }

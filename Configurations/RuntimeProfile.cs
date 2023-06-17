@@ -71,16 +71,16 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.DHT11Sensor == null ? null : new DHT11Sensor(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new DeviceStatus(src.DHT11Sensor.DeviceStatus.OperationalStatus, src.DHT11Sensor.DeviceStatus.PowerStatus,
                 src.DHT11Sensor.DeviceStatus.MaintenanceStatus, src.DHT11Sensor.DeviceStatus.PerformanceStatus, src.DHT11Sensor.DeviceStatus.HealthStatus, src.DHT11Sensor.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId)))
                 .ForMember(dest => dest.MotionSensor, option => option
-                .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.MotionSensor.DeviceStatus.OperationalStatus, src.MotionSensor.DeviceStatus.PowerStatus,
-                src.MotionSensor.DeviceStatus.MaintenanceStatus, src.MotionSensor.DeviceStatus.PerformanceStatus, src.MotionSensor.DeviceStatus.HealthStatus, src.MotionSensor.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId)))
+                .MapFrom(src => src.MotionSensor == null ? null : new MotionSensor(src.MotionSensor.IOTDeviceId, src.MotionSensor.MotionDetected, new DeviceStatus(src.MotionSensor.DeviceStatus.OperationalStatus, src.MotionSensor.DeviceStatus.PowerStatus,
+                src.MotionSensor.DeviceStatus.MaintenanceStatus, src.MotionSensor.DeviceStatus.PerformanceStatus, src.MotionSensor.DeviceStatus.HealthStatus, src.MotionSensor.DeviceStatus.ConfigurationStatus), src.MotionSensor.DeviceId)))
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensor, option => option
-                .MapFrom(src => src.LedSensor == null ? null : new LedSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
-                src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)))
+                .MapFrom(src => src.LedSensor == null ? null : new LedSensor(src.LedSensor.IOTDeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
+                src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.DeviceId)))
                 .ForMember(dest => dest.LightSensor, option => option
-                .MapFrom(src => src.LightSensor == null ? null : new LightSensor(src.LightSensor.DeviceId, src.LightSensor.Value, new DeviceStatus(src.LightSensor.DeviceStatus.OperationalStatus, src.LightSensor.DeviceStatus.PowerStatus,
-                src.LightSensor.DeviceStatus.MaintenanceStatus, src.LightSensor.DeviceStatus.PerformanceStatus, src.LightSensor.DeviceStatus.HealthStatus, src.LightSensor.DeviceStatus.ConfigurationStatus), src.LightSensor.IOTDeviceId)));
+                .MapFrom(src => src.LightSensor == null ? null : new LightSensor(src.LightSensor.IOTDeviceId, src.LightSensor.Value, new DeviceStatus(src.LightSensor.DeviceStatus.OperationalStatus, src.LightSensor.DeviceStatus.PowerStatus,
+                src.LightSensor.DeviceStatus.MaintenanceStatus, src.LightSensor.DeviceStatus.PerformanceStatus, src.LightSensor.DeviceStatus.HealthStatus, src.LightSensor.DeviceStatus.ConfigurationStatus), src.LightSensor.DeviceId)));
 
             CreateMap<Telemetry, GetTelemetryDto>()
                 .ForMember(dest => dest.DeviceStatus, option => option
