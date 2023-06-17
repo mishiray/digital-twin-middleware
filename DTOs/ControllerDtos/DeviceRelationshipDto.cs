@@ -6,6 +6,9 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
     public class CreateDeviceRelationshipDto
     {
         [Required]
+        public string MainIOTDeviceId { get; set; }
+
+        [Required]
         public string DeviceOneId { get; set; }
 
         public string DeviceTwoId { get; set; }
@@ -25,6 +28,8 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
     public class GetDeviceRelationshipDto
     {
         public string Id { get; set; }
+        public string MainIOTDeviceId { get; set; }
+        public string MainIOTDevice { get; set; }
         public string DeviceOneId { get; set; }
         public string DeviceOne { get; set; }
         public string DeviceTwoId { get; set; }
@@ -50,6 +55,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
     public class UpdateDeviceRelationshipDto
     {
         public string Id { get; set; }
+        public string MainIOTDeviceId { get; set; }
         public string DeviceOneId { get; set; }
         public string DeviceTwoId { get; set; }
         public UpdateDeviceReactionDto DeviceOneCondition { get; set; }

@@ -7,6 +7,10 @@ namespace DigitalTwinMiddleware.Entities
     public class DeviceRelationship : DbEntity
     {
         [Required]
+        public string MainIOTDeviceId { get; set; }
+        public IOTDevice MainIOTDevice { get; set; }
+
+        [Required]
         public string DeviceOneId { get; set; }
         public IOTDevice DeviceOne { get; set; }
 

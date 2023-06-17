@@ -77,6 +77,7 @@ namespace DigitalTwinMiddleware.Services
         public async Task<CustomResponse<DeviceRelationship>> GetById(string deviceRelationshipId, CancellationToken token)
         {
             var deviceRelationship = await ListAll()
+                .Include(c => c.MainIOTDevice)
                 .Include(c => c.DeviceOne)
                 .Include(c => c.DeviceTwo)
                 .Include(c => c.DeviceOneCondition)

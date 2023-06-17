@@ -18,7 +18,7 @@ namespace DigitalTwinMiddleware.Entities
         public List<Telemetry> Telemetries { get; set; }
         public DateTime LastInitiatedConnection { get; set; }
 
-        [InverseProperty("DeviceOne")]
+        [InverseProperty("MainIOTDevice")]
         public List<DeviceRelationship> DeviceRelationships { get; set; }
     }
 

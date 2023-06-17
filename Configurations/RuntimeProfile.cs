@@ -185,6 +185,8 @@ namespace DigitalTwinMiddleware.Configurations
                 }));
 
             CreateMap<DeviceRelationship, GetDeviceRelationshipDto>()
+                .ForMember(dest => dest.MainIOTDevice, option => option
+                .MapFrom(src => src.MainIOTDevice.Name))
                 .ForMember(dest => dest.DeviceOne, option => option
                 .MapFrom(src => src.DeviceOne.Name))
                 .ForMember(dest => dest.DeviceTwo, option => option

@@ -66,11 +66,12 @@ namespace DigitalTwinMiddleware.Controllers.V1
         public async Task<IActionResult> ListAll(string iotDeviceId, CancellationToken token)
         {
             var deviceRelationships = deviceRelationshipService.ListAll()
+                .Include(c => c.MainIOTDevice)
                 .Include(c => c.DeviceOne)
                 .Include(c => c.DeviceTwo)
                 .Include(c => c.DeviceOneCondition)
                 .Include(c => c.DeviceTwoReaction)
-                .Where(c => c.DeviceOneId == iotDeviceId);
+                .Where(c => c.MainIOTDeviceId == iotDeviceId);
 
             var mapped = mapper.Map<List<GetDeviceRelationshipDto>>(deviceRelationships);
 
