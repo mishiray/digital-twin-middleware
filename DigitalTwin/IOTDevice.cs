@@ -10,14 +10,18 @@ namespace DigitalTwinMiddleware.DigitalTwin
     {
         public List<Telemetry> Telemetries { get; set; }
 
-        public void Principal(List<Telemetry> telemetries)
+        public IOTDeviceTwin(List<Telemetry> telemetries)
+        {
+            Telemetries = telemetries;
+        }
+
+        public string Principal()
         {
             var ultraSonicDistanceOffset = .5;
             var tempOffset = .5;
             var humOffset = .5;
-            Telemetries = telemetries;
 
-            foreach (var telemetry in telemetries) {
+            foreach (var telemetry in Telemetries) {
                 
                 //DHTSensor
                 if(telemetry.DHT11Sensor != null)
@@ -405,6 +409,8 @@ namespace DigitalTwinMiddleware.DigitalTwin
                 }
 
             }
+
+            return null;
         }
     }
 }
