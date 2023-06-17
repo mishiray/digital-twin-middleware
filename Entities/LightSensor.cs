@@ -4,44 +4,44 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DigitalTwinMiddleware.Entities
 {
-    public class LedSensor : BaseEntity
+    public class LightSensor : BaseEntity
     {
         public string IOTDeviceId { get; set; }
         public IOTDevice IOTDevice { get; set; }
 
         public string DeviceId { get; set; }
 
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.LedSensor };
+        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.LightSensors };
 
-        public bool IsOn { get; set; }
+        public bool Value { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
 
-        public LedSensor()
+        public LightSensor()
         {
         }
 
-        public LedSensor(string iOTDeviceId, bool isOn, DeviceStatus deviceStatus, string deviceId)
+        public LightSensor(string iOTDeviceId, bool value, DeviceStatus deviceStatus, string deviceId)
         {
             DeviceId = deviceId;
             IOTDeviceId = iOTDeviceId;
-            IsOn = isOn;
+            Value = value;
             DeviceStatus = deviceStatus;
         }
     }
 
-    public class GetLedSensorDto
+    public class GetLightSensorDto
     {
         [Required]
         public string IOTDeviceId { get; set; }
         public string DeviceId { get; set; }
-        public bool IsOn { get; set; }
+        public bool Value { get; set; }
 
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetLedSensorDto(string deviceId, bool isOn, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetLightSensorDto(string deviceId, bool value, GetDeviceStatus deviceStatus, string iotDeviceId)
         {
             DeviceId = deviceId;
-            IsOn = isOn;
+            Value = value;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
         }

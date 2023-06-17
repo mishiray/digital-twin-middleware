@@ -11,6 +11,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetMotionSensorDto MotionSensor { get; set; }
         public GetLedSensorDto LedSensor { get; set; }
         public GetCameraSensorDto CameraSensor { get; set; }
+        public GetLightSensorDto LightSensor { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
     }
 
@@ -26,6 +27,7 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         public GetUltrasonicSensorDto UltrasonicSensorData { get; set; }
         public GetMotionSensorDto MotionSensorData { get; set; }
         public GetLedSensorDto LedSensorData { get; set; }
+        public GetLightSensorDto LightSensorData { get; set; }
         public GetCameraSensorDto CameraSensor { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
     }

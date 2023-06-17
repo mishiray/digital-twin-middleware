@@ -1,5 +1,6 @@
 ﻿using DigitalTwinMiddleware.DTOs.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DigitalTwinMiddleware.Entities
 {
@@ -16,6 +17,9 @@ namespace DigitalTwinMiddleware.Entities
         public List<IOTSubDevice> IOTSubDevices { get; set; }
         public List<Telemetry> Telemetries { get; set; }
         public DateTime LastInitiatedConnection { get; set; }
+
+        [InverseProperty("DeviceOne")]
+        public List<DeviceRelationship> DeviceRelationships { get; set; }
     }
 
     public class IOTSubDevice : BaseEntity

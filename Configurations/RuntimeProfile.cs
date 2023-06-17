@@ -77,7 +77,10 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensor, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new LedSensor(src.LedSensor.DeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
-                src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
+                src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)))
+                .ForMember(dest => dest.LightSensor, option => option
+                .MapFrom(src => src.LightSensor == null ? null : new LightSensor(src.LightSensor.DeviceId, src.LightSensor.Value, new DeviceStatus(src.LightSensor.DeviceStatus.OperationalStatus, src.LightSensor.DeviceStatus.PowerStatus,
+                src.LightSensor.DeviceStatus.MaintenanceStatus, src.LightSensor.DeviceStatus.PerformanceStatus, src.LightSensor.DeviceStatus.HealthStatus, src.LightSensor.DeviceStatus.ConfigurationStatus), src.LightSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, GetTelemetryDto>()
                 .ForMember(dest => dest.DeviceStatus, option => option
@@ -99,7 +102,10 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.CameraSensor == null ? null : new GetCameraSensorDto(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LedSensorData, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new GetLedSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)));
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)))
+                .ForMember(dest => dest.LightSensorData, option => option
+                .MapFrom(src => src.LightSensor == null ? null : new GetLightSensorDto(src.LightSensor.DeviceId, src.LightSensor.Value, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LightSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, ExportTelemetryData>()
                 .ForMember(dest => dest.MaintenanceStatus, option => option
@@ -159,6 +165,68 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.DHT11Sensor.DeviceStatus.ConfigurationStatus))
                 .ForMember(dest => dest.DHT11SensorOperationalStatus, option => option
                 .MapFrom(src => src.DHT11Sensor.DeviceStatus.OperationalStatus));
+            #endregion
+
+            #region Device Relationship
+            CreateMap<CreateDeviceRelationshipDto, DeviceRelationship>()
+                .ForMember(dest => dest.DeviceOneCondition, option => option
+                .MapFrom(src => new DeviceOneReaction()
+                {
+                    Condition = src.DeviceOneCondition.Condition,
+                    Value = src.DeviceOneCondition.Value,
+                    Key = src.DeviceOneCondition.Key
+                }))
+                .ForMember(dest => dest.DeviceTwoReaction, option => option
+                .MapFrom(src => new DeviceTwoReaction()
+                {
+                    Condition = src.DeviceTwoReaction.Condition,
+                    Value = src.DeviceTwoReaction.Value,
+                    Key = src.DeviceTwoReaction.Key
+                }));
+
+            CreateMap<DeviceRelationship, GetDeviceRelationshipDto>()
+                .ForMember(dest => dest.DeviceOne, option => option
+                .MapFrom(src => src.DeviceOne.Name))
+                .ForMember(dest => dest.DeviceTwo, option => option
+                .MapFrom(src => src.DeviceTwo.Name))
+                .ForMember(dest => dest.DeviceOneCondition, option => option
+                .MapFrom(src => new GetDeviceReactionDto()
+                {
+                    Id = src.DeviceOneCondition.Id,
+                    Condition = src.DeviceOneCondition.Condition,
+                    Value = src.DeviceOneCondition.Value,
+                    Key = src.DeviceOneCondition.Key,
+                    DateModified = src.DeviceOneCondition.DateModified,
+                    TimeStamp = src.DeviceOneCondition.TimeStamp,
+                    IsActive = src.DeviceOneCondition.IsActive
+                }))
+                .ForMember(dest => dest.DeviceTwoReaction, option => option
+                .MapFrom(src => new GetDeviceReactionDto()
+                {
+                    Id = src.DeviceTwoReaction.Id,
+                    Condition = src.DeviceTwoReaction.Condition,
+                    Value = src.DeviceTwoReaction.Value,
+                    Key = src.DeviceTwoReaction.Key,
+                    DateModified = src.DeviceTwoReaction.DateModified,
+                    TimeStamp = src.DeviceTwoReaction.TimeStamp,
+                    IsActive = src.DeviceTwoReaction.IsActive
+                }));
+
+            CreateMap<UpdateDeviceRelationshipDto, DeviceRelationship>()
+                .ForMember(dest => dest.DeviceOneCondition, option => option
+                .MapFrom(src => new DeviceOneReaction()
+                {
+                    Condition = src.DeviceOneCondition.Condition,
+                    Value = src.DeviceOneCondition.Value,
+                    Key = src.DeviceOneCondition.Key
+                }))
+                .ForMember(dest => dest.DeviceTwoReaction, option => option
+                .MapFrom(src => new DeviceTwoReaction()
+                {
+                    Condition = src.DeviceTwoReaction.Condition,
+                    Value = src.DeviceTwoReaction.Value,
+                    Key = src.DeviceTwoReaction.Key
+                }));
             #endregion
         }
     }

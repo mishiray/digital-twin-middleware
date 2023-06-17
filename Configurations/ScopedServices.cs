@@ -7,6 +7,7 @@ namespace DigitalTwinMiddleware.Configurations
     {
         public static IServiceCollection AddScopedServices(this IServiceCollection services) => services
             .AddScoped<IDbTransactionService, DbTransactionService>()
+            .AddScoped<IDeviceRelationshipService, DeviceRelationshipService>()
             .AddScoped<IRepository, Repository>()
             .AddScoped<IDeviceService, DeviceService>()
             .AddScoped<IUserService, UserService>();

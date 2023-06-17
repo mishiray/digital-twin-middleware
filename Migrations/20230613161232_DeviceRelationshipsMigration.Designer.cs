@@ -3,6 +3,7 @@ using System;
 using DigitalTwinMiddleware.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DigitalTwinMiddleware.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230613161232_DeviceRelationshipsMigration")]
+    partial class DeviceRelationshipsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace DigitalTwinMiddleware.Migrations
                     b.ToTable("DefaultLogs");
                 });
 
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceOneReaction", b =>
+            modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceReaction", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -92,6 +94,10 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeviceRelaionshipId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -107,7 +113,7 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeviceOneReaction");
+                    b.ToTable("DeviceReaction");
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceRelationship", b =>
@@ -133,7 +139,6 @@ namespace DigitalTwinMiddleware.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("DeviceTwoReactionId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
@@ -147,7 +152,8 @@ namespace DigitalTwinMiddleware.Migrations
 
                     b.HasIndex("DeviceTwoId");
 
-                    b.HasIndex("DeviceTwoReactionId");
+                    b.HasIndex("DeviceTwoReactionId")
+                        .IsUnique();
 
                     b.ToTable("DeviceRelationships");
                 });
@@ -187,34 +193,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeviceStatus");
-                });
-
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceTwoReaction", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Condition")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeviceTwoReaction");
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DHT11Sensor", b =>
@@ -434,44 +412,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.ToTable("LedSensor");
                 });
 
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.LightSensor", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeviceId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DeviceStatusId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IOTDeviceId")
-                        .HasColumnType("text");
-
-                    b.Property<int[]>("IOTSensorTypes")
-                        .HasColumnType("integer[]");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("Value")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeviceStatusId");
-
-                    b.HasIndex("IOTDeviceId");
-
-                    b.ToTable("LightSensor");
-                });
-
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.MotionSensor", b =>
                 {
                     b.Property<string>("Id")
@@ -539,9 +479,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.Property<string>("LedSensorId")
                         .HasColumnType("text");
 
-                    b.Property<string>("LightSensorId")
-                        .HasColumnType("text");
-
                     b.Property<string>("MotionSensorId")
                         .HasColumnType("text");
 
@@ -564,8 +501,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.HasIndex("IOTDeviceId");
 
                     b.HasIndex("LedSensorId");
-
-                    b.HasIndex("LightSensorId");
 
                     b.HasIndex("MotionSensorId");
 
@@ -842,7 +777,7 @@ namespace DigitalTwinMiddleware.Migrations
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceRelationship", b =>
                 {
-                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceOneReaction", "DeviceOneCondition")
+                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceReaction", "DeviceOneCondition")
                         .WithMany()
                         .HasForeignKey("DeviceOneConditionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -858,11 +793,9 @@ namespace DigitalTwinMiddleware.Migrations
                         .WithMany()
                         .HasForeignKey("DeviceTwoId");
 
-                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceTwoReaction", "DeviceTwoReaction")
-                        .WithMany()
-                        .HasForeignKey("DeviceTwoReactionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceReaction", "DeviceTwoReaction")
+                        .WithOne("DeviceRelationship")
+                        .HasForeignKey("DigitalTwinMiddleware.Entities.DeviceRelationship", "DeviceTwoReactionId");
 
                     b.Navigation("DeviceOne");
 
@@ -955,21 +888,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.Navigation("IOTDevice");
                 });
 
-            modelBuilder.Entity("DigitalTwinMiddleware.Entities.LightSensor", b =>
-                {
-                    b.HasOne("DigitalTwinMiddleware.Entities.DeviceStatus", "DeviceStatus")
-                        .WithMany()
-                        .HasForeignKey("DeviceStatusId");
-
-                    b.HasOne("DigitalTwinMiddleware.Entities.IOTDevice", "IOTDevice")
-                        .WithMany()
-                        .HasForeignKey("IOTDeviceId");
-
-                    b.Navigation("DeviceStatus");
-
-                    b.Navigation("IOTDevice");
-                });
-
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.MotionSensor", b =>
                 {
                     b.HasOne("DigitalTwinMiddleware.Entities.DeviceStatus", "DeviceStatus")
@@ -1011,10 +929,6 @@ namespace DigitalTwinMiddleware.Migrations
                         .WithMany()
                         .HasForeignKey("LedSensorId");
 
-                    b.HasOne("DigitalTwinMiddleware.Entities.LightSensor", "LightSensor")
-                        .WithMany()
-                        .HasForeignKey("LightSensorId");
-
                     b.HasOne("DigitalTwinMiddleware.Entities.MotionSensor", "MotionSensor")
                         .WithMany()
                         .HasForeignKey("MotionSensorId");
@@ -1034,8 +948,6 @@ namespace DigitalTwinMiddleware.Migrations
                     b.Navigation("IOTDevice");
 
                     b.Navigation("LedSensor");
-
-                    b.Navigation("LightSensor");
 
                     b.Navigation("MotionSensor");
 
@@ -1106,6 +1018,11 @@ namespace DigitalTwinMiddleware.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DigitalTwinMiddleware.Entities.DeviceReaction", b =>
+                {
+                    b.Navigation("DeviceRelationship");
                 });
 
             modelBuilder.Entity("DigitalTwinMiddleware.Entities.IOTDevice", b =>

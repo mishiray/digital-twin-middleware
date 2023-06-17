@@ -38,7 +38,8 @@
         GPSSensors,
         SoundSensors,
         VibrationSensors,
-        MoistureSensors
+        MoistureSensors,
+        LedSensor
     }
 
     public enum IOTType

@@ -1,16 +1,16 @@
 ﻿using DigitalTwinMiddleware.Entities;
 
-namespace DigitalTwinMiddleware.DigitalTwin
+namespace DigitalTwinMiddleware.DigitalTwin.Components
 {
-    public class MotionSensor
+    public class MotionSensorTwin
     {
-        public bool MotionDetected { get; set; }
+        public bool? MotionDetected { get; set; }
         public DeviceStatus DeviceStatus { get; set; }
 
         // Constructor
-        public MotionSensor()
+        public MotionSensorTwin(bool? motionDetected)
         {
-            MotionDetected = false;
+            MotionDetected = motionDetected;
             DeviceStatus = new DeviceStatus()
             {
                 PowerStatus = DTOs.Enums.PowerStatus.On,
@@ -23,9 +23,9 @@ namespace DigitalTwinMiddleware.DigitalTwin
         }
 
         // Methods
-        public DeviceStatus UpdateMotionStatus(bool? motionDetected)
+        public DeviceStatus StatusCheck()
         {
-            if(motionDetected is null)
+            if (MotionDetected is null)
             {
                 return new DeviceStatus()
                 {
@@ -38,7 +38,7 @@ namespace DigitalTwinMiddleware.DigitalTwin
                 };
             }
 
-            if(motionDetected is false)
+            if (MotionDetected is false)
             {
                 return new DeviceStatus()
                 {
@@ -51,7 +51,7 @@ namespace DigitalTwinMiddleware.DigitalTwin
                 };
             }
 
-            if(motionDetected is true)
+            if (MotionDetected is true)
             {
                 MotionDetected = true;
             }

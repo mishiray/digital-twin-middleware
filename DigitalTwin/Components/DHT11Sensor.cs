@@ -1,5 +1,6 @@
 ﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
 using DigitalTwinMiddleware.DTOs.Enums;
+using DigitalTwinMiddleware.Entities;
 using DigitalTwinMiddleware.Interfaces;
 using DigitalTwinMiddleware.Migrations;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalTwinMiddleware.Entities
+namespace DigitalTwinMiddleware.DigitalTwin.Components
 {
     public class DHT11SensorTwin
     {
@@ -21,19 +22,15 @@ namespace DigitalTwinMiddleware.Entities
         double MaxHumidity { get; set; }
 
         public DeviceStatus DeviceStatus { get; set; }
-
-        public DHT11SensorTwin()
-        {
-        }
+        
 
         public DHT11SensorTwin(double minTemperature, double maxTemperature,
-            double minHumidity, double maxHumidity, DeviceStatus deviceStatus)
+            double minHumidity, double maxHumidity)
         {
             MinTemperature = minTemperature;
             MaxTemperature = maxTemperature;
             MinHumidity = minHumidity;
             MaxHumidity = maxHumidity;
-            DeviceStatus = deviceStatus;
         }
 
         // Methods
@@ -55,12 +52,12 @@ namespace DigitalTwinMiddleware.Entities
             {
                 return new DeviceStatus()
                 {
-                    PowerStatus = DTOs.Enums.PowerStatus.On,
-                    ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
-                    OperationalStatus = DTOs.Enums.OperationalStatus.Error,
-                    HealthStatus = DTOs.Enums.HealthStatus.Critical,
-                    MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
-                    PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+                    PowerStatus = PowerStatus.On,
+                    ConfigurationStatus = ConfigurationStatus.Misconfigured,
+                    OperationalStatus = OperationalStatus.Error,
+                    HealthStatus = HealthStatus.Critical,
+                    MaintenanceStatus = MaintenanceStatus.Required,
+                    PerformanceStatus = PerformanceStatus.LowAccuracy
                 };
             }
 
@@ -77,23 +74,23 @@ namespace DigitalTwinMiddleware.Entities
             {
                 return new DeviceStatus()
                 {
-                    PowerStatus = DTOs.Enums.PowerStatus.On,
-                    ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Misconfigured,
-                    OperationalStatus = DTOs.Enums.OperationalStatus.Error,
-                    HealthStatus = DTOs.Enums.HealthStatus.Critical,
-                    MaintenanceStatus = DTOs.Enums.MaintenanceStatus.Required,
-                    PerformanceStatus = DTOs.Enums.PerformanceStatus.LowAccuracy
+                    PowerStatus = PowerStatus.On,
+                    ConfigurationStatus = ConfigurationStatus.Misconfigured,
+                    OperationalStatus = OperationalStatus.Error,
+                    HealthStatus = HealthStatus.Critical,
+                    MaintenanceStatus = MaintenanceStatus.Required,
+                    PerformanceStatus = PerformanceStatus.LowAccuracy
                 };
             }
 
             return new DeviceStatus()
             {
-                PowerStatus = DTOs.Enums.PowerStatus.On,
-                ConfigurationStatus = DTOs.Enums.ConfigurationStatus.Current,
-                OperationalStatus = DTOs.Enums.OperationalStatus.Running,
-                HealthStatus = DTOs.Enums.HealthStatus.Normal,
-                MaintenanceStatus = DTOs.Enums.MaintenanceStatus.NotRequired,
-                PerformanceStatus = DTOs.Enums.PerformanceStatus.Normal
+                PowerStatus = PowerStatus.On,
+                ConfigurationStatus = ConfigurationStatus.Current,
+                OperationalStatus = OperationalStatus.Running,
+                HealthStatus = HealthStatus.Normal,
+                MaintenanceStatus = MaintenanceStatus.NotRequired,
+                PerformanceStatus = PerformanceStatus.Normal
             };
         }
         private double MapValue(double value, double inMin, double inMax, double outMin, double outMax)
