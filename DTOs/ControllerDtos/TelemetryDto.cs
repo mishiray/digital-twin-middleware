@@ -103,4 +103,14 @@ namespace DigitalTwinMiddleware.DTOs.ControllerDtos
         }
     }
 
+    public class GetDeviceStatusString
+    {
+        public string OperationalStatus { get; set; }
+        public string PowerStatus { get; set; }
+        public string MaintenanceStatus { get; set; }
+        public string PerformanceStatus { get; set; }
+        public string HealthStatus { get; set; }
+        public string ConfigurationStatus { get; set; }
+    }
+
 }

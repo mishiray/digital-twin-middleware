@@ -51,7 +51,7 @@ namespace DigitalTwinMiddleware.DigitalTwin.Components
                 };
             }
             // Calculate distance based on duration of echo
-            Distance = Duration * 0.0343 / 2;
+            Distance = Duration * 34300 / 2;
 
             // Check if distance is within valid range
             if (Distance >= MinDistance && Distance <= MaxDistance)

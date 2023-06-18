@@ -1,4 +1,5 @@
-﻿using DigitalTwinMiddleware.DTOs.Enums;
+﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
+using DigitalTwinMiddleware.DTOs.Enums;
 
 namespace DigitalTwinMiddleware.Entities
 {
@@ -24,6 +25,19 @@ namespace DigitalTwinMiddleware.Entities
             PerformanceStatus = performanceStatus;
             HealthStatus = healthStatus;
             ConfigurationStatus = configurationStatus;
+        }
+
+        public virtual GetDeviceStatusString ToString()
+        {
+            return new GetDeviceStatusString()
+            {
+                ConfigurationStatus = ConfigurationStatus.ToString(),
+                HealthStatus = HealthStatus.ToString(),
+                MaintenanceStatus = MaintenanceStatus.ToString(),
+                OperationalStatus = OperationalStatus.ToString(),
+                PerformanceStatus = PerformanceStatus.ToString(),
+                PowerStatus = PowerStatus.ToString()
+            };
         }
     }
 }

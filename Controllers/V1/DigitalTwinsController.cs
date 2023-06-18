@@ -45,41 +45,24 @@ namespace DigitalTwinMiddleware.Controllers.V1
                 case ServiceResponses.Success:
                     var telemetry = await deviceService.ListAllTelemetry()
                         .Include(c => c.DeviceStatus)
-                        .Include(c => c.GPSModule.IOTDevice.DeviceRelationships)
+                        .Include(c => c.IOTDevice.DeviceRelationships)
                         .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.GPSModule.IOTDevice.DeviceRelationships)
+                        .Include(c => c.IOTDevice.DeviceRelationships)
                         .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.DHT11Sensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.DHT11Sensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.LightSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.LightSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.MotionSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.MotionSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.UltrasonicSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.UltrasonicSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.LedSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.LedSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
-                        .Include(c => c.CameraSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceOneCondition)
-                        .Include(c => c.CameraSensor.IOTDevice.DeviceRelationships)
-                        .ThenInclude(c => c.DeviceTwoReaction)
+                        .Include(c => c.GPSModule.IOTDevice)
+                        .Include(c => c.DHT11Sensor.IOTDevice)
+                        .Include(c => c.LightSensor.IOTDevice)
+                        .Include(c => c.MotionSensor.IOTDevice)
+                        .Include(c => c.UltrasonicSensor.IOTDevice)
+                        .Include(c => c.LedSensor.IOTDevice)
+                        .Include(c => c.CameraSensor.IOTDevice)
                         .Where(c => c.TimeStamp >= startDate.ToUniversalTime() && c.TimeStamp <= endDate.ToUniversalTime() && c.IOTDeviceId == iOTDeviceId)
                         .ToListAsync(token);
 
                     var twinData = new IOTDeviceTwin(telemetry);
                     var data = twinData.Principal();
 
-                    return Ok(ResponseBuilder.BuildResponse(null, mapper.Map<List<GetTelemetryDto>>(telemetry)));
+                    return Ok(ResponseBuilder.BuildResponse(null, data));
 
                 default:
                     ModelState.AddModelError($"{iotDevice.Response}", iotDevice.Message);
