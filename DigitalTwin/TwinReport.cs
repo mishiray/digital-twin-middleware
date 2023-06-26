@@ -15,6 +15,7 @@ namespace DigitalTwinMiddleware.DigitalTwin
         public TwinReport LightSensorData { get; set; }
         public TwinReport CameraSensor { get; set; }
     }
+
     public class TwinReport
     {
         public string DeviceName { get; set; }

@@ -50,110 +50,7 @@ namespace DigitalTwinMiddleware.DigitalTwin
                                 var conditionHum = _relationship.DeviceOneCondition.GetValue("Humidity");
                                 if (DeviceRelationship.CheckRelationship(conditionTemp.Condition, dHT11SensorTwin.Temperature, double.Parse(conditionTemp.Value)))
                                 {
-                                    var deviceType = _relationship.DeviceTwo.IOTSensorType;
-                                    if (deviceType != null)
-                                    {
-                                        var _deviceIIClass = telemetry.GetClassBySensor(deviceType.Value);
-                                        switch (_deviceIIClass)
-                                        {
-                                            case "DHT11Sensor":
-                                                twinReactDevices.DeviceName = "DHT11Sensor";
-                                                DHT11SensorTwin _dhttemp = new(telemetry.DHT11Sensor.Temperature - tempOffset, telemetry.DHT11Sensor.Temperature + tempOffset,
-                                                                                telemetry.DHT11Sensor.Humidity - humOffset, telemetry.DHT11Sensor.Humidity + humOffset);
-
-                                                //null check
-                                                var _conditionTwoTemp = _relationship.DeviceTwoReaction.GetValue("Temperature");
-                                                var _conditionTwoHum = _relationship.DeviceTwoReaction.GetValue("Humidity");
-                                                var tempResult = DeviceRelationship.CheckRelationship(_conditionTwoTemp.Condition, _dhttemp.Temperature, double.Parse(_conditionTwoTemp.Value));
-                                                var humResult = DeviceRelationship.CheckRelationship(_conditionTwoHum.Condition, _dhttemp.Humidity, double.Parse(_conditionTwoHum.Value));
-                                                if(tempResult && humResult)
-                                                {
-                                                    twinReactDevices.WorkingProperly = true;
-                                                }
-                                                else
-                                                {
-                                                    twinReactDevices.WorkingProperly = false;
-                                                    errors.Add($"The temperature value of {_dhttemp.Temperature} seems off");
-                                                    errors.Add($"The humidity value of {_dhttemp.Humidity} seems off");
-                                                }
-                                                break;
-
-                                            case "UltrasonicSensor":
-                                                twinReactDevices.DeviceName = "UltrasonicSensor";
-                                                UltrasonicSensorTwin _ultratemp = new(telemetry.UltrasonicSensor.Distance - ultraSonicDistanceOffset,
-                                                                                        telemetry.UltrasonicSensor.Distance + ultraSonicDistanceOffset,
-                                                                                        telemetry.UltrasonicSensor.Duration);
-
-                                                //null check
-                                                var _conditionTwoMaxD = _relationship.DeviceTwoReaction.GetValue("MaxDistance");
-                                                var _conditionTwoMinD = _relationship.DeviceTwoReaction.GetValue("MinDistance");
-                                                var maxDResult = DeviceRelationship.CheckRelationship(_conditionTwoMaxD.Condition, _ultratemp.MaxDistance, double.Parse(_conditionTwoMaxD.Value));
-                                                var minDResult = DeviceRelationship.CheckRelationship(_conditionTwoMinD.Condition, _ultratemp.MinDistance, double.Parse(_conditionTwoMinD.Value));
-                                                if (maxDResult && minDResult)
-                                                {
-                                                    twinReactDevices.WorkingProperly = true;
-                                                }
-                                                else
-                                                {
-                                                    twinReactDevices.WorkingProperly = false;
-                                                    errors.Add($"The possible values of ultrasonic sensor seems off with distance of {telemetry.UltrasonicSensor.Distance}");
-                                                }
-                                                break;
-
-                                            case "MotionSensor":
-                                                twinReactDevices.DeviceName = "MotionSensor";
-                                                MotionSensorTwin _motionSensor = new(telemetry.MotionSensor.MotionDetected);
-
-                                                //null check
-                                                var _conditionTwoM = _relationship.DeviceTwoReaction.GetValue("MotionDetected");
-                                                var mResult = DeviceRelationship.CheckRelationship(_conditionTwoM.Condition, _motionSensor.MotionDetected.Value, bool.Parse(_conditionTwoM.Value));
-                                                if (mResult)
-                                                {
-                                                    twinReactDevices.WorkingProperly = true;
-                                                }
-                                                else
-                                                {
-                                                    twinReactDevices.WorkingProperly = false;
-                                                    errors.Add($"Motion Sensor values inaccurate");
-                                                }
-                                                break;
-
-                                            case "LedSensor":
-                                                twinReactDevices.DeviceName = "LedSensor";
-                                                LedSensorTwin _ledSensor = new(telemetry.LedSensor.IsOn);
-
-                                                //null check
-                                                var _conditionTwoL = _relationship.DeviceTwoReaction.GetValue("IsOn");
-                                                var lResult = DeviceRelationship.CheckRelationship(_conditionTwoL.Condition, _ledSensor.IsOn.Value, bool.Parse(_conditionTwoL.Value));
-                                                if (lResult)
-                                                {
-                                                    twinReactDevices.WorkingProperly = true;
-                                                }
-                                                else
-                                                {
-                                                    twinReactDevices.WorkingProperly = false;
-                                                    errors.Add($"Led Sensor values inaccurate");
-                                                }
-                                                break;
-                                            case "LightSensor":
-                                                twinReactDevices.DeviceName = "LightSensor";
-                                                LightSensorTwin _lightSensor = new(telemetry.LightSensor.Value);
-
-                                                //null check
-                                                var _conditionTwoLight = _relationship.DeviceTwoReaction.GetValue("Value");
-                                                var lightResult = DeviceRelationship.CheckRelationship(_conditionTwoLight.Condition, _lightSensor.Value.Value, bool.Parse(_conditionTwoLight.Value));
-                                                if (lightResult)
-                                                {
-                                                    twinReactDevices.WorkingProperly = true;
-                                                }
-                                                else
-                                                {
-                                                    twinReactDevices.WorkingProperly = false;
-                                                    errors.Add($"Light Sensor values inaccurate");
-                                                }
-                                                break;
-                                        }
-                                    }
+                                    twinReactDevices = GetReportData(_relationship, errors, telemetry, twinReactDevices);
                                 }
 
                                 if (DeviceRelationship.CheckRelationship(conditionHum.Condition, dHT11SensorTwin.Humidity, double.Parse(conditionHum.Value)))
@@ -249,7 +146,7 @@ namespace DigitalTwinMiddleware.DigitalTwin
                     var twinReport = new TwinReport();
                     twinReport.Reactions = new List<ReactTwinReport>();
                     twinReport.DeviceName = "CameraSensor";
-                    var isPoweredOn = telemetry.CameraSensor?.DeviceStatus.PowerStatus == PowerStatus.On;
+                    var isPoweredOn = telemetry.CameraSensor.DeviceStatus?.PowerStatus == PowerStatus.On;
                     CameraSensorTwin cameraSensorTwin = new(isPoweredOn, telemetry.CameraSensor.Data);
 
                     twinReport.DeviceStatus = cameraSensorTwin.StatusCheck().ToString();
