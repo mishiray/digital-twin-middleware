@@ -22,13 +22,14 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public GPSModule(string deviceId, double longitude, double latitude, DeviceStatus deviceStatus, string iotDeviceId)
+        public GPSModule(string deviceId, double longitude, double latitude, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Longitude = longitude;
             Latitude = latitude;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
+            TimeStamp = timeStamp;
         }
     }
 
@@ -39,14 +40,15 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-
+        public DateTime TimeStamp { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetGPSModuleDto(string deviceId, double longitude, double latitude, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetGPSModuleDto(string deviceId, double longitude, double latitude, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Longitude = longitude;
             Latitude = latitude;
             DeviceStatus = deviceStatus;
+            TimeStamp = timeStamp;
             IOTDeviceId = iotDeviceId;
         }
     }

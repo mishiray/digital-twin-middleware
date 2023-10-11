@@ -21,12 +21,13 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public MotionSensor(string iOTDeviceId, bool motionDetected, DeviceStatus deviceStatus, string deviceId)
+        public MotionSensor(string iOTDeviceId, bool motionDetected, DeviceStatus deviceStatus, string deviceId DateTime timeStamp)
         {
             DeviceId = deviceId;
             IOTDeviceId = iOTDeviceId;
             MotionDetected = motionDetected;
             DeviceStatus = deviceStatus;
+            TimeStamp = timeStamp;
         }
     }
 
@@ -38,12 +39,14 @@ namespace DigitalTwinMiddleware.Entities
         public bool MotionDetected { get; set; }
 
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetMotionSensorDto(string deviceId, bool motionDetected, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public DateTime TimeStamp { get; set; }
+        public GetMotionSensorDto(string deviceId, bool motionDetected, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             MotionDetected = motionDetected;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
+            TimeStamp = timeStamp;
         }
     }
 }

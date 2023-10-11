@@ -29,13 +29,14 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public UltrasonicSensor(double distance, string deviceId, DeviceStatus deviceStatus, string iotDeviceId, double duration)
+        public UltrasonicSensor(double distance, string deviceId, DeviceStatus deviceStatus, string iotDeviceId, double duration, DateTime timeStamp)
         {
             Distance = distance;
             DeviceId = deviceId;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
             Duration = duration;
+            TimeStamp = timeStamp;
         }
     }
     public class GetUltrasonicSensorDto
@@ -46,13 +47,15 @@ namespace DigitalTwinMiddleware.Entities
         public double Distance { get; set; }
         public double Duration { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetUltrasonicSensorDto(string deviceId, double distance, GetDeviceStatus deviceStatus,string iOTDeviceId, double duration)
+        public DateTime TimeStamp { get; set; }
+        public GetUltrasonicSensorDto(string deviceId, double distance, GetDeviceStatus deviceStatus,string iOTDeviceId, double duration, DateTime timeStamp)
         {
             IOTDeviceId = iOTDeviceId;
             DeviceId = deviceId;
             Distance = distance;
             Duration = duration;
             DeviceStatus = deviceStatus;
+            TimeStamp = timeStamp;
         }
     }
 }

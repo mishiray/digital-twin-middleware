@@ -46,15 +46,17 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public double Temperature { get; set; }
         public double Humidity { get; set; }
+        public DateTime TimeStamp { get; set; }
 
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetDHT11SensorDto(string deviceId, double temperature, double humidity, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public GetDHT11SensorDto(string deviceId, double temperature, double humidity, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Temperature = temperature;
             Humidity = humidity;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
+            TimeStamp = timeStamp;
         }
     }
 }

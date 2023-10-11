@@ -21,12 +21,13 @@ namespace DigitalTwinMiddleware.Entities
         }
 
 
-        public CameraSensor(string deviceId, string data, DeviceStatus deviceStatus, string iotDeviceId)
+        public CameraSensor(string deviceId, string data, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Data = data;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
+            TimeStamp = timeStamp;
         }
     }
     public class GetCameraSensorDto
@@ -37,12 +38,14 @@ namespace DigitalTwinMiddleware.Entities
         public string Data { get; set; }
 
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetCameraSensorDto(string deviceId,string data, GetDeviceStatus deviceStatus, string iotDeviceId)
+        public DateTime TimeStamp { get; set; }
+        public GetCameraSensorDto(string deviceId,string data, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Data = data;
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
+            TimeStamp = timeStamp;
         }
     }
 }
