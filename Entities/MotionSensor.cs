@@ -21,7 +21,7 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public MotionSensor(string iOTDeviceId, bool motionDetected, DeviceStatus deviceStatus, string deviceId DateTime timeStamp)
+        public MotionSensor(string iOTDeviceId, bool motionDetected, DeviceStatus deviceStatus, string deviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             IOTDeviceId = iOTDeviceId;
