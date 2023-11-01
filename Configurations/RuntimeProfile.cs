@@ -63,7 +63,7 @@ namespace DigitalTwinMiddleware.Configurations
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus)))
                 .ForMember(dest => dest.GPSModule, option => option
                 .MapFrom(src => src.GPSModule == null ? null : new GPSModule(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, new DeviceStatus(src.GPSModule.DeviceStatus.OperationalStatus, src.GPSModule.DeviceStatus.PowerStatus, 
-                src.GPSModule.DeviceStatus.MaintenanceStatus, src.GPSModule.DeviceStatus.PerformanceStatus, src.GPSModule.DeviceStatus.HealthStatus, src.GPSModule.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp)))
+                src.GPSModule.DeviceStatus.MaintenanceStatus, src.GPSModule.DeviceStatus.PerformanceStatus, src.GPSModule.DeviceStatus.HealthStatus, src.GPSModule.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp, src.GPSModule.Location)))
                 .ForMember(dest => dest.UltrasonicSensor, option => option
                 .MapFrom(src => src.UltrasonicSensor == null ? null : new UltrasonicSensor(src.UltrasonicSensor.Distance, src.UltrasonicSensor.DeviceId, new DeviceStatus(src.UltrasonicSensor.DeviceStatus.OperationalStatus, src.UltrasonicSensor.DeviceStatus.PowerStatus,
                 src.UltrasonicSensor.DeviceStatus.MaintenanceStatus, src.UltrasonicSensor.DeviceStatus.PerformanceStatus, src.UltrasonicSensor.DeviceStatus.HealthStatus, src.UltrasonicSensor.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration, src.UltrasonicSensor.TimeStamp)))
@@ -89,7 +89,7 @@ namespace DigitalTwinMiddleware.Configurations
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus)))
                 .ForMember(dest => dest.GPSData, option => option
                 .MapFrom(src =>src.GPSModule == null ? null : new GetGPSModuleDto(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp)))
+                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp, src.GPSModule.Location)))
                 .ForMember(dest => dest.UltrasonicSensorData, option => option
                 .MapFrom(src => src.UltrasonicSensor == null ? null : new GetUltrasonicSensorDto(src.UltrasonicSensor.DeviceId, src.UltrasonicSensor.Distance, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration, src.UltrasonicSensor.TimeStamp)))

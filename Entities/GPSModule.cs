@@ -10,6 +10,7 @@ namespace DigitalTwinMiddleware.Entities
         public IOTDevice IOTDevice { get; set; }
 
         public string DeviceId { get; set; }
+        public string Location { get; set; }
 
         public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.GPSSensors };
 
@@ -22,7 +23,7 @@ namespace DigitalTwinMiddleware.Entities
         {
         }
 
-        public GPSModule(string deviceId, double longitude, double latitude, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
+        public GPSModule(string deviceId, double longitude, double latitude, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp, string location)
         {
             DeviceId = deviceId;
             Longitude = longitude;
@@ -30,6 +31,7 @@ namespace DigitalTwinMiddleware.Entities
             DeviceStatus = deviceStatus;
             IOTDeviceId = iotDeviceId;
             TimeStamp = timeStamp;
+            Location = location;    
         }
     }
 
@@ -42,7 +44,8 @@ namespace DigitalTwinMiddleware.Entities
         public double Latitude { get; set; }
         public DateTime TimeStamp { get; set; }
         public GetDeviceStatus DeviceStatus { get; set; }
-        public GetGPSModuleDto(string deviceId, double longitude, double latitude, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
+        public string Location { get; set; }
+        public GetGPSModuleDto(string deviceId, double longitude, double latitude, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp, string location)
         {
             DeviceId = deviceId;
             Longitude = longitude;
@@ -50,6 +53,7 @@ namespace DigitalTwinMiddleware.Entities
             DeviceStatus = deviceStatus;
             TimeStamp = timeStamp;
             IOTDeviceId = iotDeviceId;
+            Location = location;
         }
     }
 }
