@@ -85,28 +85,22 @@ namespace DigitalTwinMiddleware.Configurations
 
             CreateMap<Telemetry, GetTelemetryDto>()
                 .ForMember(dest => dest.DeviceStatus, option => option
-                .MapFrom(src => new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
+                .MapFrom(src => src.DeviceStatus == null ? null : new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
                 src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus)))
                 .ForMember(dest => dest.GPSData, option => option
-                .MapFrom(src =>src.GPSModule == null ? null : new GetGPSModuleDto(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp, src.GPSModule.Location)))
+                .MapFrom(src =>src.GPSModule == null ? null : new GetGPSModuleDto(src.GPSModule.DeviceId, src.GPSModule.Longitude, src.GPSModule.Latitude, null, src.GPSModule.IOTDeviceId, src.GPSModule.TimeStamp, src.GPSModule.Location)))
                 .ForMember(dest => dest.UltrasonicSensorData, option => option
-                .MapFrom(src => src.UltrasonicSensor == null ? null : new GetUltrasonicSensorDto(src.UltrasonicSensor.DeviceId, src.UltrasonicSensor.Distance, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration, src.UltrasonicSensor.TimeStamp)))
+                .MapFrom(src => src.UltrasonicSensor == null ? null : new GetUltrasonicSensorDto(src.UltrasonicSensor.DeviceId, src.UltrasonicSensor.Distance, null, src.UltrasonicSensor.IOTDeviceId, src.UltrasonicSensor.Duration, src.UltrasonicSensor.TimeStamp)))
                 .ForMember(dest => dest.DHT11SensorData, option => option
-                .MapFrom(src => src.DHT11Sensor == null ? null : new GetDHT11SensorDto(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.DHT11Sensor.IOTDeviceId, src.DHT11Sensor.TimeStamp)))
+                .MapFrom(src => src.DHT11Sensor == null ? null : new GetDHT11SensorDto(src.DHT11Sensor.DeviceId, src.DHT11Sensor.Temperature, src.DHT11Sensor.Humidity, null, src.DHT11Sensor.IOTDeviceId, src.DHT11Sensor.TimeStamp)))
                 .ForMember(dest => dest.MotionSensorData, option => option
-                .MapFrom(src => src.MotionSensor == null ? null : new GetMotionSensorDto(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.MotionSensor.IOTDeviceId, src.MotionSensor.TimeStamp)))
+                .MapFrom(src => src.MotionSensor == null ? null : new GetMotionSensorDto(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, null, src.MotionSensor.IOTDeviceId, src.MotionSensor.TimeStamp)))
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new GetCameraSensorDto(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId, src.CameraSensor.TimeStamp)))
                 .ForMember(dest => dest.LedSensorData, option => option
-                .MapFrom(src => src.LedSensor == null ? null : new GetLedSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LedSensor.IOTDeviceId)))
+                .MapFrom(src => src.LedSensor == null ? null : new GetLedSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn,null, src.LedSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LightSensorData, option => option
-                .MapFrom(src => src.LightSensor == null ? null : new GetLightSensorDto(src.LightSensor.DeviceId, src.LightSensor.Value, new GetDeviceStatus(src.DeviceStatus.OperationalStatus, src.DeviceStatus.PowerStatus,
-                src.DeviceStatus.MaintenanceStatus, src.DeviceStatus.PerformanceStatus, src.DeviceStatus.HealthStatus, src.DeviceStatus.ConfigurationStatus), src.LightSensor.IOTDeviceId)));
+                .MapFrom(src => src.LightSensor == null ? null : new GetLightSensorDto(src.LightSensor.DeviceId, src.LightSensor.Value, null, src.LightSensor.IOTDeviceId)));
 
             CreateMap<Telemetry, ExportTelemetryData>()
                 .ForMember(dest => dest.MaintenanceStatus, option => option
