@@ -33,10 +33,10 @@ namespace DigitalTwinMiddleware.Configurations
 
             var info = new OpenApiInfo()
             {
-                Title = "Digital Twin Middleware API",
+                Title = "Resource Discovery API",
                 Version = description.ApiVersion.ToString(),
-                Description = "The Official Swagger Documentation for Digital Twin Middlware API.",
-                Contact = new OpenApiContact() { Email = "woroumishael@gmail.com", Name = "Abiola Mishael" }
+                Description = "The Official Swagger Documentation for Resource Discovery Middlware API.",
+                Contact = new OpenApiContact() { Email = "doyin@gmail.com", Name = "OYEDOYIN OPEYEMI" }
             };
     
             if (description.IsDeprecated)
