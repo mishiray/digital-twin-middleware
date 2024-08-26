@@ -67,7 +67,6 @@ C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalTwinMi
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\scopedcss\bundle\DigitalTwinMiddleware.styles.css
-C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalTwinMiddleware.csproj.CopyComplete
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalTwinMiddleware.dll
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\refint\DigitalTwinMiddleware.dll
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalTwinMiddleware.pdb
@@ -78,3 +77,6 @@ C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebasse
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.DigitalTwinMiddleware.props
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.DigitalTwinMiddleware.props
 C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\Ilife\source\repos\DigitalTwinMiddleware\bin\Debug\net6.0\S22.Xmpp.dll
+C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalTwinMiddleware.sourcelink.json
+C:\Users\Ilife\source\repos\DigitalTwinMiddleware\obj\Debug\net6.0\DigitalT.AFAA7553.Up2Date

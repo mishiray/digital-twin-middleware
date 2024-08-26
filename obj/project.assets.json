@@ -726,6 +726,19 @@
           }
         }
       },
+      "S22.Xmpp/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/S22.Xmpp.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/S22.Xmpp.dll": {
+            "related": ".XML"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -2070,6 +2083,19 @@
         "postgresql.png"
       ]
     },
+    "S22.Xmpp/1.0.0": {
+      "sha512": "Wh2jctIcvP8AL2eUGIbuy9k4Owl4z+ZrC2HNk55J4ZYCETx48oncSsY7wNSiF9TxG0ETkVkfrAkipKMe+BVAjw==",
+      "type": "package",
+      "path": "s22.xmpp/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/S22.Xmpp.XML",
+        "lib/net45/S22.Xmpp.dll",
+        "s22.xmpp.1.0.0.nupkg.sha512",
+        "s22.xmpp.nuspec"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.2.3": {
       "sha512": "cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
       "type": "package",
@@ -2648,6 +2674,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.16",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.16",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.8",
+      "S22.Xmpp >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -2689,6 +2716,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2729,6 +2761,10 @@
             "target": "Package",
             "version": "[6.0.8, )"
           },
+          "S22.Xmpp": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.2.3, )"
@@ -2745,6 +2781,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -2753,8 +2807,20 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'S22.Xmpp 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "S22.Xmpp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

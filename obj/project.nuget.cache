@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xqYGDGXBdlmGL8F6NWjioY69CcYOgV8KEJjbiwniJOKtXQBY3vA+pqsR4Q74VQKHq4xLx/62lcXs2mpBzIdXxw==",
+  "dgSpecHash": "awK7H9jdBfz1aRP3qXGHZxzYg0BUA+dSlTmkngotfYTXrOdYxpkymdFKUO9P+L4HXfW5y3tR5jxaXkgBHkQV8Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ilife\\source\\repos\\DigitalTwinMiddleware\\DigitalTwinMiddleware.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\Ilife\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\npgsql\\6.0.8\\npgsql.6.0.8.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\6.0.8\\npgsql.entityframeworkcore.postgresql.6.0.8.nupkg.sha512",
+    "C:\\Users\\Ilife\\.nuget\\packages\\s22.xmpp\\1.0.0\\s22.xmpp.1.0.0.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
@@ -64,7 +65,22 @@
     "C:\\Users\\Ilife\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Ilife\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
-    "C:\\Users\\Ilife\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\Ilife\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\Ilife\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.31\\microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
+    "C:\\Users\\Ilife\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.31\\microsoft.netcore.app.host.win-x64.6.0.31.nupkg.sha512",
+    "C:\\Users\\Ilife\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.31\\microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
+    "C:\\Users\\Ilife\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.31\\microsoft.windowsdesktop.app.ref.6.0.31.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'S22.Xmpp 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "S22.Xmpp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

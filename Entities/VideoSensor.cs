@@ -1,10 +1,11 @@
 ﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
 using DigitalTwinMiddleware.DTOs.Enums;
+using DigitalTwinMiddleware.Entities.Component;
 using System.ComponentModel.DataAnnotations;
 
 namespace DigitalTwinMiddleware.Entities
 {
-    public class CameraSensor : BaseEntity
+    public class VideoSensor : BaseEntity
     {
         public string IOTDeviceId { get; set; }
         public IOTDevice IOTDevice { get; set; }
@@ -16,12 +17,12 @@ namespace DigitalTwinMiddleware.Entities
 
         public DeviceStatus DeviceStatus { get; set; }
 
-        public CameraSensor()
+        public VideoSensor()
         {
         }
 
 
-        public CameraSensor(string deviceId, string data, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
+        public VideoSensor(string deviceId, string data, DeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Data = data;
@@ -31,7 +32,7 @@ namespace DigitalTwinMiddleware.Entities
         }
     }
 
-    public class GetCameraSensorDto
+    public class GetVideoSensorDto
     {
         [Required]
         public string IOTDeviceId { get; set; }
@@ -40,7 +41,7 @@ namespace DigitalTwinMiddleware.Entities
 
         public GetDeviceStatus DeviceStatus { get; set; }
         public DateTime TimeStamp { get; set; }
-        public GetCameraSensorDto(string deviceId,string data, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
+        public GetVideoSensorDto(string deviceId, string data, GetDeviceStatus deviceStatus, string iotDeviceId, DateTime timeStamp)
         {
             DeviceId = deviceId;
             Data = data;

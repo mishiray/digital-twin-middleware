@@ -13,6 +13,7 @@ namespace DigitalTwinMiddleware.Entities
         public GPSModule GPSModule { get; set; }
         public UltrasonicSensor UltrasonicSensor { get; set; }
         public CameraSensor CameraSensor { get; set; }
+        public CameraSensor VideoSensor { get; set; }
         public MotionSensor MotionSensor { get; set; }
         public LedSensor LedSensor { get; set; }
         public LightSensor LightSensor { get; set; }

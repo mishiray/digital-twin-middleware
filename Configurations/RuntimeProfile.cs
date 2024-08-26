@@ -76,6 +76,9 @@ namespace DigitalTwinMiddleware.Configurations
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new CameraSensor(src.CameraSensor.DeviceId, src.CameraSensor.Data, new DeviceStatus(src.CameraSensor.DeviceStatus.OperationalStatus, src.CameraSensor.DeviceStatus.PowerStatus,
                 src.CameraSensor.DeviceStatus.MaintenanceStatus, src.CameraSensor.DeviceStatus.PerformanceStatus, src.CameraSensor.DeviceStatus.HealthStatus, src.CameraSensor.DeviceStatus.ConfigurationStatus), src.CameraSensor.IOTDeviceId, src.CameraSensor.TimeStamp)))
+                .ForMember(dest => dest.VideoSensor, option => option
+                .MapFrom(src => src.VideoSensor == null ? null : new CameraSensor(src.VideoSensor.DeviceId, src.VideoSensor.Data, new DeviceStatus(src.VideoSensor.DeviceStatus.OperationalStatus, src.VideoSensor.DeviceStatus.PowerStatus,
+                src.VideoSensor.DeviceStatus.MaintenanceStatus, src.VideoSensor.DeviceStatus.PerformanceStatus, src.VideoSensor.DeviceStatus.HealthStatus, src.VideoSensor.DeviceStatus.ConfigurationStatus), src.VideoSensor.IOTDeviceId, src.VideoSensor.TimeStamp)))
                 .ForMember(dest => dest.LedSensor, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new LedSensor(src.LedSensor.IOTDeviceId, src.LedSensor.IsOn, new DeviceStatus(src.LedSensor.DeviceStatus.OperationalStatus, src.LedSensor.DeviceStatus.PowerStatus,
                 src.LedSensor.DeviceStatus.MaintenanceStatus, src.LedSensor.DeviceStatus.PerformanceStatus, src.LedSensor.DeviceStatus.HealthStatus, src.LedSensor.DeviceStatus.ConfigurationStatus), src.LedSensor.DeviceId)))
@@ -97,6 +100,8 @@ namespace DigitalTwinMiddleware.Configurations
                 .MapFrom(src => src.MotionSensor == null ? null : new GetMotionSensorDto(src.MotionSensor.DeviceId, src.MotionSensor.MotionDetected, null, src.MotionSensor.IOTDeviceId, src.MotionSensor.TimeStamp)))
                 .ForMember(dest => dest.CameraSensor, option => option
                 .MapFrom(src => src.CameraSensor == null ? null : new GetCameraSensorDto(src.CameraSensor.DeviceId, src.CameraSensor.Data, null, src.CameraSensor.IOTDeviceId, src.CameraSensor.TimeStamp)))
+                .ForMember(dest => dest.VideoSensor, option => option
+                .MapFrom(src => src.VideoSensor == null ? null : new GetCameraSensorDto(src.VideoSensor.DeviceId, src.VideoSensor.Data, null, src.VideoSensor.IOTDeviceId, src.VideoSensor.TimeStamp)))
                 .ForMember(dest => dest.LedSensorData, option => option
                 .MapFrom(src => src.LedSensor == null ? null : new GetLedSensorDto(src.LedSensor.DeviceId, src.LedSensor.IsOn,null, src.LedSensor.IOTDeviceId)))
                 .ForMember(dest => dest.LightSensorData, option => option
