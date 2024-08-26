@@ -113,6 +113,7 @@ namespace DigitalTwinMiddleware.Services
                 .Include(c => c.DHT11Sensor.DeviceStatus)
                 .Include(c => c.UltrasonicSensor.DeviceStatus)
                 .Include(c => c.CameraSensor.DeviceStatus)
+                .Include(c => c.VideoSensor.DeviceStatus)
                 .Include(c => c.LedSensor.DeviceStatus)
                 .Where(c => c.IOTDeviceId == iOTDeviceId);
         }
@@ -124,6 +125,7 @@ namespace DigitalTwinMiddleware.Services
                 .Include(c => c.DHT11Sensor.DeviceStatus)
                 .Include(c => c.UltrasonicSensor.DeviceStatus)
                 .Include(c => c.CameraSensor.DeviceStatus)
+                .Include(c => c.VideoSensor.DeviceStatus)
                 .Include(c => c.LedSensor.DeviceStatus);
         }
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DigitalTwinMiddleware")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1c7289c1d60ef0c2582a896c5716278641e9a41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b5b483d0885bfb930976731d763c3fe00abafd9")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigitalTwinMiddleware")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigitalTwinMiddleware")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
