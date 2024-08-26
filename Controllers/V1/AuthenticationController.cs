@@ -25,7 +25,6 @@ namespace DigitalTwinMiddleware.Controllers.V1
         }
 
         [HttpPost("generate-token")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IOTDeviceToken(RequestBearerTokenModel model, CancellationToken token)
         {
             if (!ModelState.IsValid)
