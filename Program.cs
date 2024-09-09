@@ -3,7 +3,19 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
+    connectionString = builder.Configuration.GetConnectionString("connectionString");
+}
+else
+{
+    connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+}
+
 builder.Services.ConfigureDatabase(connectionString);
 
 // Add services to the container.
