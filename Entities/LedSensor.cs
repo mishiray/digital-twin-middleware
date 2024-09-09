@@ -11,7 +11,7 @@ namespace DigitalTwinMiddleware.Entities
 
         public string DeviceId { get; set; }
 
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.LedSensor };
+        public IOTSensorType IOTSensorType { get; set; } = IOTSensorType.LedSensor;
 
         public bool IsOn { get; set; }
 

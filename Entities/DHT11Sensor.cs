@@ -1,7 +1,6 @@
 ﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
 using DigitalTwinMiddleware.DTOs.Enums;
 using DigitalTwinMiddleware.Interfaces;
-using DigitalTwinMiddleware.Migrations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,7 +16,7 @@ namespace DigitalTwinMiddleware.Entities
         public IOTDevice IOTDevice { get; set; }
 
         public string DeviceId { get; set; }
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>(){ IOTSensorType.TemperatureSensors, IOTSensorType.HumiditySensors };
+        public IOTSensorType IOTSensorType { get; set; } = IOTSensorType.TemperatureSensors;
 
         public double Temperature { get; set; }
         public double Humidity { get; set; }

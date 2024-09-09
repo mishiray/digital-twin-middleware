@@ -1,4 +1,5 @@
-﻿using DigitalTwinMiddleware.Entities;
+﻿using DigitalTwinMiddleware.DTOs.Enums;
+using DigitalTwinMiddleware.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -20,18 +21,6 @@ namespace DigitalTwinMiddleware.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<DeviceRelationship>()
-            //.HasOne(dr => dr.DeviceOneCondition)
-            //.WithMany()
-            //.HasForeignKey(dr => dr.DeviceOneConditionId)
-            //.IsRequired();
-
-            //builder.Entity<DeviceRelationship>()
-            //.HasOne(dr => dr.DeviceTwoReaction)
-            //.WithMany()
-            //.HasForeignKey(dr => dr.DeviceTwoReactionId)
-            //.IsRequired();
-
             base.OnModelCreating(builder);
         }
     }

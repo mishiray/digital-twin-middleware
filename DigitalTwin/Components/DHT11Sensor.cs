@@ -2,7 +2,6 @@
 using DigitalTwinMiddleware.DTOs.Enums;
 using DigitalTwinMiddleware.Entities;
 using DigitalTwinMiddleware.Interfaces;
-using DigitalTwinMiddleware.Migrations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

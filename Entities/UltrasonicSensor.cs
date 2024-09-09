@@ -1,7 +1,6 @@
 ﻿using DigitalTwinMiddleware.DTOs.ControllerDtos;
 using DigitalTwinMiddleware.DTOs.Enums;
 using DigitalTwinMiddleware.Interfaces;
-using DigitalTwinMiddleware.Migrations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +21,7 @@ namespace DigitalTwinMiddleware.Entities
 
         public double Distance { get; set; }
 
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.ProximitySensors};
+        public IOTSensorType IOTSensorType { get; set; } = IOTSensorType.ProximitySensors;
         public DeviceStatus DeviceStatus { get; set; }
 
         public UltrasonicSensor()

@@ -12,7 +12,7 @@ namespace DigitalTwinMiddleware.Entities
         public string DeviceId { get; set; }
         public string Location { get; set; }
 
-        public List<IOTSensorType> IOTSensorTypes { get; set; } = new List<IOTSensorType>() { IOTSensorType.GPSSensors };
+        public IOTSensorType IOTSensorType { get; set; } = IOTSensorType.GPSSensors;
 
         public double Longitude { get; set; }
         public double Latitude { get; set; }

@@ -9,7 +9,7 @@ namespace DigitalTwinMiddleware.Configurations
         {
             return
             services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseSqlServer(connectionString));
         }
     }
 }
